@@ -1,0 +1,18 @@
+{
+  "name": "sharajman",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+       "allure-report":"allure generate my-allure-results -o allure-report -clean",
+       "open-allure":"allure open allure-report"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.40.1",
+    "@types/node": "^20.9.3",
+    "allure-playwright": "^2.10.0"
+  }
+}

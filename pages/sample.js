@@ -1,0 +1,30 @@
+import { test, expect } from '@playwright/test';
+
+test('test', async ({ page }) => {
+  await page.goto('https://uat-platform.newage.market/login');
+  await page.getByPlaceholder('Email Address').click();
+  await page.getByPlaceholder('Email Address').fill('manojkumar.s@tickingminds.com');
+  await page.getByPlaceholder('Password').click();
+  await page.getByPlaceholder('Password').fill('manojkumar.s@tickingminds.com');
+  await page.getByPlaceholder('Password').press('Control+z');
+  await page.getByPlaceholder('Password').press('CapsLock');
+  await page.getByPlaceholder('Password').fill('T');
+  await page.getByPlaceholder('Password').press('CapsLock');
+  await page.getByPlaceholder('Password').fill('Testing@123');
+  await page.getByRole('button', { name: 'Login' }).click();
+  await page.getByRole('link', { name: 'Call for Proposal' }).click();
+  const page1Promise = page.waitForEvent('popup');
+  await page.getByRole('link', { name: 'Power Swapping' }).click();
+  const page1 = await page1Promise;
+  await page1.getByRole('button', { name: 'Create New CFP' }).click();
+  await page1.getByRole('button', { name: 'I Agree' }).click();
+  await page1.locator('#sell div').filter({ hasText: 'Import Period Add' }).getByRole('button').click();
+  await page1.getByPlaceholder('From Date').fill('2023-11-25');
+  await page1.getByPlaceholder('To Date').fill('2023-11-26');
+  await expect(page1.getByPlaceholder('HH').nth(1)).toHaveValue('11');
+  await page1.getByPlaceholder('Ceiling Return (%)').click();
+  await page1.locator('p').filter({ hasText: 'Select Responders' }).click();
+  await page1.getByPlaceholder('Ceiling Return (%)').click();
+  await page1.getByPlaceholder('Ceiling Return (%)').fill('10');
+  await page1.locator('#sell').getByLabel('Floating label select example').selectOption('2');
+});
