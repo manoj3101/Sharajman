@@ -1,15 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-        NODEJS_HOME = tool 'NodeJS-14' // Set the Node.js tool name accordingly
-        ALLURE_HOME = tool 'Allure-Commandline' // Set the Allure tool name accordingly
-    }
-
-    options {
-        timeout(time: 1, unit: 'HOURS')
-    }
-
     stages {
         stage('Checkout') {
             steps {
@@ -19,34 +10,25 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-                script {
-                    sh "${NODEJS_HOME}/bin/npm ci"
-                }
+                sh 'npm install'
             }
         }
 
         stage('Run Playwright Tests') {
             steps {
-                script {
-                    sh "${NODEJS_HOME}/bin/npx playwright test"
-                }
+                sh 'npx playwright test --project=chromium --reporter=allure-playwright'
             }
         }
 
         stage('Generate Allure Report') {
             steps {
-                script {
-                    sh "mkdir -p allure-results"
-                    sh "${NODEJS_HOME}/bin/npx allure generate --clean -o allure-report allure-results"
-                }
+                allure includeProperties: false, jdk: '', results: [[path: 'allure-results']]
             }
         }
-    }
 
-    post {
-        always {
-            dir('path/to/workspace') {
-                archiveArtifacts artifacts: 'allure-report/', fingerprint: true
+        stage('Publish Allure Report') {
+            steps {
+                allure report: 'allure-report', publish: true
             }
         }
     }
