@@ -1,31 +1,20 @@
 pipeline {
     agent any
-
     stages {
-        stage('Checkout') {
+        stage('Build') {
             steps {
-                checkout scm
+                //
             }
         }
-
-        stage('Install Dependencies') {
+        stage('Test') {
             steps {
-                sh 'npm install'
+                //
             }
         }
-
-        stage('Run Playwright Tests') {
+        stage('Deploy') {
             steps {
-                sh 'npx playwright test --project=chromium --reporter=allure-playwright'
+                //
             }
         }
-
-        stage('Generate Allure Report') {
-            steps {
-                allure includeProperties: false, jdk: '', results: [[path: 'allure-results']]
-            }
-        }
-
-
     }
 }
