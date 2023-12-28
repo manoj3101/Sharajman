@@ -13,11 +13,6 @@ pipeline {
             }
         }
 
-        stage('Debug') {
-            steps {
-                bat 'echo Debugging information: This step is executed.'
-            }
-        }
 
         stage('Install Node.js') {
             steps {
