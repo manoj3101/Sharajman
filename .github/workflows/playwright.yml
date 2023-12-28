@@ -31,12 +31,12 @@ jobs:
           npm install -g allure-commandline
 
       - name: Set PLAYWRIGHT_HEADLESS to true
-        run: echo "PLAYWRIGHT_HEADLESS=false" >> $GITHUB_ENV
+        run: echo "PLAYWRIGHT_HEADLESS=true" >> $GITHUB_ENV
 
       - name: Run Playwright tests
         env:
           TOTP_SECRET: ${{ secrets.TOTP_SECRET }}
-        run: npx playwright test --headed
+        run: npx playwright test 
 
       - name: Generate Allure Report
         run:  allure generate .\my-allure-report\ -o allure-report -clean
