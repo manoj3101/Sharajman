@@ -80,7 +80,7 @@ pipeline {
             // Wait for a while for the Allure server to start
             timeout(time: 60, unit: 'SECONDS') {
                 // Access Allure Report
-                bat 'cd C:\ProgramData\Jenkins\.jenkins\workspace\sharajman\allure-report\'
+                bat 'cd C:/ProgramData/Jenkins/.jenkins/workspace/sharajman/allure-report/'
                 bat 'start chrome index.html'
                 
                 //Send an email notification with the Allure report as an attachment
