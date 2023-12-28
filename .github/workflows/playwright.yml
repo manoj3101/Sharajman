@@ -36,7 +36,7 @@ jobs:
       - name: Run Playwright tests
         env:
           TOTP_SECRET: ${{ secrets.TOTP_SECRET }}
-        run: npx playwright test tests
+        run: npx playwright test 
 
       - name: Generate Allure Report
         run: npx allure generate --clean ./my-allure-report
