@@ -83,14 +83,14 @@ pipeline {
                 bat 'cd C:\ProgramData\Jenkins\.jenkins\workspace\sharajman\allure-report\'
                 bat 'start chrome index.html'
                 
-                // Send an email notification with the Allure report as an attachment
-                // emailext(
-                //     subject: 'Allure Report',
-                //     body: 'Please find the attached Allure report.',
-                //     attachmentsPattern: '**/my-allure-report.zip', // Assuming your report is in a zip file
-                //     to: 'manojkumar.s@tickingminds.com', // Replace with the recipient's email address
-                //     recipientProviders: [[$class: 'DevelopersRecipientProvider']]
-                // )
+                //Send an email notification with the Allure report as an attachment
+                emailext(
+                    subject: 'Allure Report',
+                    body: 'Please find the attached Allure report.',
+                    attachmentsPattern: '**/my-allure-report.zip', // Assuming your report is in a zip file
+                    to: 'manojkumar.s@tickingminds.com', // Replace with the recipient's email address
+                    recipientProviders: [[$class: 'DevelopersRecipientProvider']]
+                )
             }
         }
     }
