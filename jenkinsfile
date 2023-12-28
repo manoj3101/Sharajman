@@ -72,7 +72,7 @@ pipeline {
             // This script block will always run, regardless of the previous stages' status
 
             // Generate Allure Report
-            bat 'npx allure generate --clean ./allure-results'
+            bat 'npx allure generate --clean ./my-allure-report'
 
             // Start Allure Server
             // bat 'npx allure open'
@@ -80,15 +80,15 @@ pipeline {
             // Wait for a while for the Allure server to start
             timeout(time: 60, unit: 'SECONDS') {
                 // Access Allure Report
-                bat 'cd C:/ProgramData/Jenkins/.jenkins/workspace/Delenta1/allure-report/'
+                bat 'cd C:\ProgramData\Jenkins\.jenkins\workspace\sharajman\allure-report\'
                 bat 'start chrome index.html'
                 
                 // Send an email notification with the Allure report as an attachment
                 // emailext(
                 //     subject: 'Allure Report',
                 //     body: 'Please find the attached Allure report.',
-                //     attachmentsPattern: '**/allure-report.zip', // Assuming your report is in a zip file
-                //     to: 'sanjaykumar.s@tickingminds.com', // Replace with the recipient's email address
+                //     attachmentsPattern: '**/my-allure-report.zip', // Assuming your report is in a zip file
+                //     to: 'manojkumar.s@tickingminds.com', // Replace with the recipient's email address
                 //     recipientProviders: [[$class: 'DevelopersRecipientProvider']]
                 // )
             }
