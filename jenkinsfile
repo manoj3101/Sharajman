@@ -1,0 +1,47 @@
+pipeline {
+    agent any
+
+    triggers {
+        github(
+            events: [push(), pullRequest()],
+            branches: [[main, master]]
+        )
+    }
+
+    stages {
+        stage('Test') {
+            agent {
+                label 'windows'
+            }
+
+            options {
+                timeout(time: 1, unit: 'HOURS')
+            }
+
+            steps {
+                checkout scm
+
+                tool 'node-18' // Make sure you have Node.js 18 configured in Jenkins
+
+                script {
+                    def playwrightExecutable = bat(script: 'npm bin', returnStatus: true).trim() + '\\playwright.cmd'
+
+                    bat 'npm ci'
+                    bat 'npm install -g playwright'
+
+                    // Install Playwright Browsers
+                    bat "$playwrightExecutable install --with-deps"
+
+                    // Run Playwright tests
+                    bat "$playwrightExecutable test"
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            archiveArtifacts artifacts: 'playwright-report/', fingerprint: true
+        }
+    }
+}
