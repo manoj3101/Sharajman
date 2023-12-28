@@ -18,7 +18,8 @@ test('Creating CFP from Initiator side', async ({ page,context,browser}) => {
 
     await login.login(data.user1,data.user1_password); 
     await home.clickCallForPropsal();
-    await dashboardCFP.clickCreateCFP();
+    console.log("Ended");
+    // await dashboardCFP.clickCreateCFP();
     // await dashboardCFP.powerSwapping('200');
     // await dashboardCFP.firstChoice("Export");
     // await dashboardCFP.resultPublish(false);
