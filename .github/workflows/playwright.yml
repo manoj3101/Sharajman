@@ -39,7 +39,7 @@ jobs:
         run: npx playwright test 
 
       - name: Generate Allure Report
-        run: npx allure generate --clean ./my-allure-report
+        run:  allure generate .\my-allure-report\ -o allure-report -clean
 
       - name: Publish Allure Report as Artifact
         uses: actions/upload-artifact@v2
