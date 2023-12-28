@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        NODEJS_HOME = tool 'NodeJS-20' // Set the Node.js tool name accordingly
+        NODEJS_HOME = tool 'NodeJS-14' // Set the Node.js tool name accordingly
         ALLURE_HOME = tool 'Allure-Commandline' // Set the Allure tool name accordingly
     }
 
@@ -45,7 +45,9 @@ pipeline {
 
     post {
         always {
-            archiveArtifacts artifacts: 'allure-report/', fingerprint: true
+            dir('path/to/workspace') {
+                archiveArtifacts artifacts: 'allure-report/', fingerprint: true
+            }
         }
     }
 }
