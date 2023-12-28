@@ -72,7 +72,7 @@ pipeline {
             // This script block will always run, regardless of the previous stages' status
 
             // Generate Allure Report
-            bat 'npx allure generate .\my-allure-report\ -o allure-report -clean'
+            bat 'npx allure generate ./my-allure-report/ -o allure-report -clean'
 
             // Start Allure Server
             bat 'npx allure open'
