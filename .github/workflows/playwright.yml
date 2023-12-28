@@ -40,6 +40,7 @@ jobs:
 
       - name: Generate Allure Report
         run:  allure generate .\my-allure-report\ -o allure-report -clean
+        run: allure open allure-report
 
       - name: Publish Allure Report as Artifact
         uses: actions/upload-artifact@v2
