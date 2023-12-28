@@ -75,18 +75,18 @@ module.exports = defineConfig({
     // },
 
     /* Test against branded browsers. */
-    {
-      name: 'Microsoft Edge',
-      use: { ...devices['Desktop Edge'], channel: 'msedge',
-      launchOptions: {
-      args: ['--start-fullscreen'] } }, 
-    },
     // {
-    //   name: 'Google Chrome',
-    //   use: { ...devices['Desktop Chrome'], channel: 'chrome',
+    //   name: 'Microsoft Edge',
+    //   use: { ...devices['Desktop Edge'], channel: 'msedge',
     //   launchOptions: {
-    //   args: ['--start-fullscreen'] } },
+    //   args: ['--start-fullscreen'] } }, 
     // },
+    {
+      name: 'Google Chrome',
+      use: { ...devices['Desktop Chrome'], channel: 'chrome',
+      launchOptions: {
+      args: ['--start-fullscreen'] } },
+    },
   ],
 
   /*Folder for test artifacts such as screenshots, videos, traces, etc.*/
