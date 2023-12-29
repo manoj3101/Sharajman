@@ -33,7 +33,7 @@ test('Creating CFP from Initiator side', async ({ page,context,browser}) => {
     // await dashboardCFP.selectResponder();
     // await dashboardCFP.publish();
 
-    storedCFP =dashboardCFP.CFP_Num;        
+    // storedCFP =dashboardCFP.CFP_Num;        
 });
 
 
@@ -51,7 +51,7 @@ test('Creating CFP from Initiator side', async ({ page,context,browser}) => {
 // });
 
 
-// // Need to put wait time here for 15 min
+// Need to put wait time here for 15 min
 
 // test('Initiator Awarding/LOA',async({page,context,browser})=>{
 //     const login =new Login(page);
