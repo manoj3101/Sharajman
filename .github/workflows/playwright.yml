@@ -47,5 +47,3 @@ jobs:
         with:
           name: my-allure-report
           path: my-allure-report # Adjust the path to the generated report
-          name: playwright-report
-          path: playwright-report
