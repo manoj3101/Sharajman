@@ -75,7 +75,7 @@ pipeline {
             bat 'npx allure generate --clean ./allure-results'
 
             // Start Allure Server
-            bat 'npx allure open'
+           // bat 'npx allure open'
 
             // Wait for a while for the Allure server to start
             timeout(time: 60, unit: 'SECONDS') {
