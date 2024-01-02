@@ -66,6 +66,7 @@ pipeline {
     post {
         always {
             // Clean up temporary files or perform other post-build actions
+             echo 'This will always run'
         }
     }
 }
