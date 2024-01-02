@@ -2,8 +2,7 @@ pipeline {
     agent any
 
     environment {
-        NODEJS_HOME = tool 'NodeJS'
-        PATH = "$NODEJS_HOME/bin:$PATH"
+        NODE_VERSION = 'v20.9.0'
     }
 
     stages {
@@ -12,6 +11,22 @@ pipeline {
                 checkout scm
             }
         }
+
+    
+   stage('Install Node.js') {
+            steps {
+                // Download and install Node.js using the official Windows installer
+                bat "curl -o nodejs-setup.exe https://nodejs.org/dist/${NODE_VERSION}/node-${NODE_VERSION}-x64.msi"
+                
+                // Add Node.js installation directory to the system PATH
+                bat 'setx PATH "%PATH%;D:\\node js" /M'
+                
+                // Verify Node.js installation
+                bat 'node -v'
+                bat 'npm -v'
+                bat 'npx -v'
+            }
+        }    
 
         stage('Install Dependencies') {
             steps {
