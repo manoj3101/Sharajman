@@ -32,13 +32,13 @@ pipeline {
             steps {
                 script {
                     // Install Node.js dependencies
-                    sh 'npm install'
+                    bat 'npm install'
                     
                     // Install Playwright
-                    sh 'npx playwright install'
+                    bat 'npx playwright install'
                     
                     // Install Allure Playwright
-                    sh 'npm install allure-playwright -g'
+                    bat 'npm install allure-playwright -g'
                 }
             }
         }
@@ -47,7 +47,7 @@ pipeline {
             steps {
                 script {
                     // Run Playwright tests
-                    sh 'npx playwright test'
+                    bat 'npx playwright test'
                 }
             }
         }
@@ -56,7 +56,7 @@ pipeline {
             steps {
                 script {
                     // Generate Allure report
-                    sh 'npx allure generate --clean ./allure-results'
+                    bat 'npx allure generate --clean ./allure-results'
                 }
             }
         }
