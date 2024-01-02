@@ -90,9 +90,11 @@ pipeline {
                               attachmentsPattern: '**/allure-report.zip',
                               to: 'manojkumar.s@tickingminds.com srikanth.n@tickingminds.com',
                               mimeType: 'text/html')
+                        }
+                    }
                 }
-            }
-        }
+            } 
+    }       
         
     }
 }
