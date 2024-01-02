@@ -57,7 +57,6 @@ pipeline {
                 script {
                     // Generate Allure report
                     bat 'npx allure generate --clean ./allure-results'
-                    bat 'npx allure open'
                 }
             }
         }
@@ -74,6 +73,18 @@ pipeline {
                         reportFiles: 'index.html',
                         reportName: 'Allure Report'
                     ])
+                }
+            }
+        }
+
+         stage('Send Email with Allure Report') {
+            steps {
+                script {
+                    emailext subject: 'Test Results - Playwright Tests',
+                              body: 'Please find the attached Allure report for Playwright tests.',
+                              attachmentsPattern: '**/allure-report/*',
+                              to: 'manojkumar.s@tickingminds.com',
+                              mimeType: 'text/html'
                 }
             }
         }
