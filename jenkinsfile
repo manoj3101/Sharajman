@@ -64,7 +64,7 @@ pipeline {
         stage('Publish Allure Report') {
             steps {
                 script {
-                     archiveArtifacts allowEmptyArchive: true, artifacts: 'allure-report/index.html', onlyIfSuccessful: Always
+                     archiveArtifacts allowEmptyArchive: true, artifacts: 'allure-report/index.html', onlyIfSuccessful: true
                     // Publish Allure report in Jenkins
                     publishHTML([
                         allowMissing: false,
