@@ -68,7 +68,8 @@ pipeline {
                               body: 'Please find the attached Allure report for Playwright tests.',
                               attachmentsPattern: '**/allure-report/*',
                               to: 'smanoj3101@gmail.com',
-                              mimeType: 'text/html')
+                              mimeType: 'text/html',
+                              recipientProviders: [developers(), requestor()],)
                 }
             }
         }
