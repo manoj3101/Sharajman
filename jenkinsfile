@@ -36,6 +36,7 @@ pipeline {
                 bat 'npx playwright install'
 
                 // Install Allure Commandline globally
+                bat 'npm i allure-playwright'
                 bat 'npm install -g allure-commandline'
             }
         }
@@ -44,7 +45,7 @@ pipeline {
             steps {
                 script {
                     // Run Playwright tests in headless mode
-                    bat 'npx playwright test tests/ZoomMeet.spec.js'
+                    bat 'npx playwright test'
                 }
             }
         }
