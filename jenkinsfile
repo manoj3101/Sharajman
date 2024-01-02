@@ -57,6 +57,7 @@ pipeline {
                 script {
                     // Generate Allure report
                     bat 'npx allure generate --clean ./allure-results'
+                    bat 'npx allure open'
                 }
             }
         }
