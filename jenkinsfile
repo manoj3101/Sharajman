@@ -64,6 +64,7 @@ pipeline {
         stage('Publish Allure Report') {
             steps {
                 script {
+                     archiveArtifacts allowEmptyArchive: true, artifacts: 'allure-report/index.html', onlyIfSuccessful: Always
                     // Publish Allure report in Jenkins
                     publishHTML([
                         allowMissing: false,
@@ -75,12 +76,9 @@ pipeline {
                     ])
                 }
             }
-        }       
-    }
+        }
 
-    post {
-        always {
-            stage('Send Email with Allure Report') {
+        stage('Send Email with Allure Report') {
             steps {
                 script {
                     emailext (
@@ -90,11 +88,15 @@ pipeline {
                               attachmentsPattern: '**/allure-report.zip',
                               to: 'manojkumar.s@tickingminds.com srikanth.n@tickingminds.com',
                               mimeType: 'text/html')
-                        }
-                    }
                 }
-            } 
-    }       
-        
+            }
+        }
+    }
+
+    post {
+        always {
+            // Clean up temporary files or perform other post-build actions
+            echo 'This will run Always'
+        }
     }
 }
