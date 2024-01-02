@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        NODE_VERSION = 'v20.9.0'
+        NODE_VERSION = 'v20.9.0'  // Specify the Node.js version you want to use
     }
 
     stages {
@@ -11,22 +11,6 @@ pipeline {
                 checkout scm
             }
         }
-
-    
-   stage('Install Node.js') {
-            steps {
-                // Download and install Node.js using the official Windows installer
-                bat "curl -o nodejs-setup.exe https://nodejs.org/dist/${NODE_VERSION}/node-${NODE_VERSION}-x64.msi"
-                
-                // Add Node.js installation directory to the system PATH
-                bat 'setx PATH "%PATH%;D:\\node js" /M'
-                
-                // Verify Node.js installation
-                bat 'node -v'
-                bat 'npm -v'
-                bat 'npx -v'
-            }
-        }    
 
         stage('Install Dependencies') {
             steps {
@@ -39,7 +23,6 @@ pipeline {
                     
                     // Install Allure Playwright
                     bat 'npm install allure-playwright -g'
-
                 }
             }
         }
@@ -58,7 +41,6 @@ pipeline {
                 script {
                     // Generate Allure report
                     bat 'npx allure generate --clean ./allure-results'
-                    
                 }
             }
         }
@@ -79,16 +61,14 @@ pipeline {
             }
         }
 
-         stage('Send Email with Allure Report') {
+        stage('Send Email with Allure Report') {
             steps {
                 script {
-                    emailext(
-                    subject: 'Allure Report',
-                    body: 'Please find the attached Allure report.',
-                    attachmentsPattern: '**/allure-report/*', // Assuming your report is in a zip file
-                    to: 'manojkumar.s@tickingminds.com', // Replace with the recipient's email address
-                    recipientProviders: [[$class: 'DevelopersRecipientProvider']]
-                )
+                    emailext (subject: 'Test Results - Playwright Tests',
+                              body: 'Please find the attached Allure report for Playwright tests.',
+                              attachmentsPattern: '**/allure-report/*',
+                              to: 'smanoj3101@gmail.com',
+                              mimeType: 'text/html')
                 }
             }
         }
@@ -97,7 +77,7 @@ pipeline {
     post {
         always {
             // Clean up temporary files or perform other post-build actions
-             echo 'This will always run'
+            echo 'This will run always'
         }
     }
 }
