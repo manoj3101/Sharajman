@@ -39,7 +39,7 @@ pipeline {
                     
                     // Install Allure Playwright
                     bat 'npm install allure-playwright -g'
-                    bat 'npm install -g allure-commandline'
+
                 }
             }
         }
