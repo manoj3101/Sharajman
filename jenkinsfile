@@ -75,9 +75,12 @@ pipeline {
                     ])
                 }
             }
-        }
+        }       
+    }
 
-        stage('Send Email with Allure Report') {
+    post {
+        always {
+            stage('Send Email with Allure Report') {
             steps {
                 script {
                     emailext (
@@ -90,12 +93,6 @@ pipeline {
                 }
             }
         }
-    }
-
-    post {
-        always {
-            // Clean up temporary files or perform other post-build actions
-            echo 'This will run Always'
-        }
+        
     }
 }
