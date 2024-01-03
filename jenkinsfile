@@ -68,7 +68,7 @@ pipeline {
                         recipientProviders: [[$class: 'DevelopersRecipientProvider']],
                         subject: 'Test Results - Playwright Tests',
                         body: 'Please find the attached Allure report for Playwright tests.',
-                        attachmentsPattern: 'target/allure-report/**',
+                        attachmentsPattern: 'allure-report/**',
                         to: 'manojkumar.s@tickingminds.com srikanth.n@tickingminds.com',
                         mimeType: 'text/html'
                     )
