@@ -58,20 +58,10 @@ pipeline {
             }
         }
 
-        stage('Publish HTML Report') {
+        stage('Archive Allure artifacts') {
             steps {
-                script {
-                    archiveArtifacts 'allure-results/**'
-                    // Publish Allure report in Jenkins
-                    publishHTML([
-                        allowMissing: false,
-                        alwaysLinkToLastBuild: false,
-                        keepAll: true,
-                        reportDir: 'allure-report',
-                        reportFiles: 'index.html',
-                        reportName: 'Allure Report'
-                    ])
-                }
+                // Archive Allure artifacts for long-term storage
+                archiveArtifacts 'allure-report/**'
             }
         }
 
