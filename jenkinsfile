@@ -75,14 +75,14 @@ pipeline {
                 }
             }
         }
+    }
 
-        post {
-            always {
-                // Archive the Allure report as a build artifact
-                echo 'Archiving the built artifacts'
-                archiveArtifacts 'target/allure-report/**'
-                archiveArtifacts 'pkg/*.gem'
-            }
+    post {
+        always {
+            // Archive the Allure report as a build artifact
+            echo 'Archiving the built artifacts'
+            archiveArtifacts 'target/allure-report/**'
+            archiveArtifacts 'pkg/*.gem'
         }
     }
 }
