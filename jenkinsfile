@@ -71,9 +71,10 @@ pipeline {
                     emailext (
                         recipientProviders: [[$class: 'DevelopersRecipientProvider']],
                         subject: 'Test Results - Playwright Tests',
-                        body: 'Please find the attached Allure report for Playwright tests.',
+                        body: ''$PROJECT_NAME' - Build # '$BUILD_NUMBER' - '$BUILD_STATUS':
+                               Check console output at '$BUILD_URL' to view the results.',
                         attachmentsPattern: 'playwright-report/*.html',
-                        to: 'manojkumar.s@tickingminds.com srikanth.n@tickingminds.com  mohamed.rasheed@tickingminds.com',
+                        to: 'manojkumar.s@tickingminds.com srikanth.n@tickingminds.com ',
                         mimeType: 'text/html'
                     )
                 }
