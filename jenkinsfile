@@ -61,7 +61,7 @@ pipeline {
         stage('Archive Allure artifacts') {
             steps {
                 // Archive Allure artifacts for long-term storage
-                archiveArtifacts 'allure-report/**'
+                archiveArtifacts 'allure-report/**' 
             }
         }
 
@@ -72,7 +72,7 @@ pipeline {
                         recipientProviders: [[$class: 'DevelopersRecipientProvider']],
                         subject: 'Test Results - Playwright Tests',
                         body: 'Please find the attached Allure report for Playwright tests.',
-                        attachmentsPattern: '**/allure-report.zip',
+                        attachmentsPattern: 'allure-report/*.html',
                         to: 'manojkumar.s@tickingminds.com srikanth.n@tickingminds.com',
                         mimeType: 'text/html'
                     )
