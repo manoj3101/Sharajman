@@ -40,12 +40,25 @@ pipeline {
             steps {
                 script {
                     // Generate Allure report
-                    bat 'npx allure generate --clean ./allure-results'
+                    bat 'npx allure generate allure-results --clean -o allure-report'
                 }
             }
         }
 
-        stage('Publish Allure Report') {
+        stage('Publish Allure report') {
+            steps {
+                // Publish Allure report to Jenkins
+                allure([
+                    includeProperties: false,
+                    jdk: '',
+                    properties: [],
+                    reportBuildPolicy: 'ALWAYS',
+                    results: [[path: 'allure-results']]
+                ])
+            }
+        }
+
+        stage('Publish HTML Report') {
             steps {
                 script {
                     archiveArtifacts 'allure-results/**'
@@ -69,7 +82,7 @@ pipeline {
                         recipientProviders: [[$class: 'DevelopersRecipientProvider']],
                         subject: 'Test Results - Playwright Tests',
                         body: 'Please find the attached Allure report for Playwright tests.',
-                        attachmentsPattern: 'allure-report/*.html',
+                        attachmentsPattern: '**/allure-report.zip',
                         to: 'manojkumar.s@tickingminds.com srikanth.n@tickingminds.com',
                         mimeType: 'text/html'
                     )
