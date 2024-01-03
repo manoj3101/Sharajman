@@ -48,7 +48,7 @@ pipeline {
         stage('Publish Allure Report') {
             steps {
                 script {
-                    archiveArtifacts 'allure-report/*.html'
+                    archiveArtifacts 'allure-results/**'
                     // Publish Allure report in Jenkins
                     publishHTML([
                         allowMissing: false,

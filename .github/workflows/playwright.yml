@@ -45,5 +45,5 @@ jobs:
       - name: Publish Allure Report as Artifact
         uses: actions/upload-artifact@v2
         with:
-          name: my-allure-report
-          path: my-allure-report # Adjust the path to the generated report
+          name: allure-report
+          path: allure-report # Adjust the path to the generated report
