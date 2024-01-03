@@ -61,14 +61,7 @@ pipeline {
                 }
             }
         }
-        post {
-        always {
-            // Archive the Allure report as a build artifact
-            echo 'Archiving  the built artifacts'
-            archiveArtifacts 'target/allure-report/**'
-            archive (includes: 'pkg/*.gem')
-            }
-        }    
+            
 
         stage('Send Email with Allure Report') {
             steps {
@@ -82,6 +75,15 @@ pipeline {
                               to: 'manojkumar.s@tickingminds.com srikanth.n@tickingminds.com',
                               mimeType: 'text/html')
                 }
+            }
+        }
+
+        post {
+        always {
+            // Archive the Allure report as a build artifact
+            echo 'Archiving  the built artifacts'
+            archiveArtifacts 'target/allure-report/**'
+            archive (includes: 'pkg/*.gem')
             }
         }
     }
