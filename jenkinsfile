@@ -12,7 +12,6 @@ pipeline {
             }
         }
 
-
         stage('Install Dependencies') {
             steps {
                 script {
@@ -61,32 +60,29 @@ pipeline {
                 }
             }
         }
-            
 
         stage('Send Email with Allure Report') {
             steps {
                 script {
                     emailext (
-                              recipientProviders: [[$class: 'DevelopersRecipientProvider']],
-                              subject: 'Test Results - Playwright Tests',
-                              body: 'Please find the attached Allure report for Playwright tests.',
-                              //attachmentsPattern: '**/allure-report/index.html',
-                              attachmentsPattern: 'target/allure-report/**',
-                              to: 'manojkumar.s@tickingminds.com srikanth.n@tickingminds.com',
-                              mimeType: 'text/html')
+                        recipientProviders: [[$class: 'DevelopersRecipientProvider']],
+                        subject: 'Test Results - Playwright Tests',
+                        body: 'Please find the attached Allure report for Playwright tests.',
+                        attachmentsPattern: 'target/allure-report/**',
+                        to: 'manojkumar.s@tickingminds.com srikanth.n@tickingminds.com',
+                        mimeType: 'text/html'
+                    )
                 }
             }
         }
 
         post {
-        always {
-            // Archive the Allure report as a build artifact
-            echo 'Archiving  the built artifacts'
-            archiveArtifacts 'target/allure-report/**'
-            archive (includes: 'pkg/*.gem')
+            always {
+                // Archive the Allure report as a build artifact
+                echo 'Archiving the built artifacts'
+                archiveArtifacts 'target/allure-report/**'
+                archiveArtifacts 'pkg/*.gem'
             }
         }
     }
-
-
 }
