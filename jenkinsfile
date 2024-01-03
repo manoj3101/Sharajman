@@ -49,11 +49,10 @@ pipeline {
         stage('Publish Allure Report') {
             steps {
                 script {
-                     archiveArtifacts allowEmptyArchive: true, artifacts: 'allure-report/index.html', onlyIfSuccessful: true
                     // Publish Allure report in Jenkins
                     publishHTML([
                         allowMissing: false,
-                        alwaysLinkToLastBuild: true,
+                        alwaysLinkToLastBuild: false,
                         keepAll: true,
                         reportDir: 'allure-report',
                         reportFiles: 'index.html',
@@ -62,6 +61,14 @@ pipeline {
                 }
             }
         }
+        post {
+        always {
+            // Archive the Allure report as a build artifact
+            echo 'Archiving  the built artifacts'
+            archiveArtifacts 'target/allure-report/**'
+            archive (includes: 'pkg/*.gem')
+            }
+        }    
 
         stage('Send Email with Allure Report') {
             steps {
@@ -70,7 +77,8 @@ pipeline {
                               recipientProviders: [[$class: 'DevelopersRecipientProvider']],
                               subject: 'Test Results - Playwright Tests',
                               body: 'Please find the attached Allure report for Playwright tests.',
-                              attachmentsPattern: '**/allure-report/index.html',
+                              //attachmentsPattern: '**/allure-report/index.html',
+                              attachmentsPattern: 'target/allure-report/**',
                               to: 'manojkumar.s@tickingminds.com srikanth.n@tickingminds.com',
                               mimeType: 'text/html')
                 }
@@ -78,10 +86,5 @@ pipeline {
         }
     }
 
-    post {
-        always {
-            // Clean up temporary files or perform other post-build actions
-            echo 'This will run Always'
-        }
-    }
+
 }
