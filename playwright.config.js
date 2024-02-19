@@ -1,5 +1,6 @@
 // @ts-check
 const { defineConfig, devices } = require('@playwright/test');
+require('dotenv').config();
 
 /**
  * Read environment variables from file.
@@ -11,7 +12,7 @@ const { defineConfig, devices } = require('@playwright/test');
  * @see https://playwright.dev/docs/test-configuration
  */
 module.exports = defineConfig({
-  testDir: './tests',
+  testDir: './src/tests',
   timeout: 120 * 1000,
   // expect: {
   //   timeout: 180 * 1000,
@@ -27,7 +28,7 @@ module.exports = defineConfig({
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: [['html'],
-             ['allure-playwright',{outputFolder: 'allure-results'}]],
+  ['allure-playwright', { outputFolder: 'allure-results' }]],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
@@ -76,17 +77,48 @@ module.exports = defineConfig({
 
     /* Test against branded browsers. */
     // {
-    //   name: 'Microsoft Edge',
-    //   use: { ...devices['Desktop Edge'], channel: 'msedge',
-    //   launchOptions: {
-    //   args: ['--start-fullscreen'] } }, 
+    //   name: 'Google Chrome',
+    //   use: {
+    //     ...devices['Desktop Chrome'], channel: 'chrome',
+    //     launchOptions: {
+    //       args: ['--start-fullscreen']
+    //     },
+
+    //     // Use environment variables for user credentials
+    //     username: process.env.USER1,
+    //     password: process.env.USER1_PASSWORD,
+    //   }
+
     // },
+
+    // {
+    //   name: 'Microsoft Edge',
+    //   use: {
+    //     ...devices['Desktop Edge'], channel: 'msedge',
+    //     launchOptions: {
+    //       args: ['--start-fullscreen']
+    //     },
+
+    //     // Use environment variables for user credentials
+    //     username: process.env.USER2,
+    //     password: process.env.USER2_PASSWORD,
+    //   },
+    // },
+
     {
-      name: 'Google Chrome',
-      use: { ...devices['Desktop Chrome'], channel: 'chrome',
-      launchOptions: {
-      args: ['--start-fullscreen'] } },
+      name: 'firefox',
+      use: {
+        ...devices['Desktop Firefox'],
+        launchOptions: {
+          args: ['--kiosk']
+        },
+
+        // Use environment variables for user credentials
+        username: process.env.USER3,
+        password: process.env.USER3_PASSWORD,
+      },
     },
+
   ],
 
   /*Folder for test artifacts such as screenshots, videos, traces, etc.*/
@@ -98,5 +130,6 @@ module.exports = defineConfig({
   //   url: 'http://127.0.0.1:3000',
   //   reuseExistingServer: !process.env.CI,
   // },
+  
 });
 

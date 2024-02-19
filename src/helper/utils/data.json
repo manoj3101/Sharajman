@@ -1,0 +1,741 @@
+{
+    "browser":"chrome",
+    "URL":"https://platform.test.newage.market/login",
+  
+    "admin":"yashi.s@sharajman.com",
+    "admin_password":"s6^asT?WF%",
+
+    "user5":"manojkumar.s@tickingminds.com",
+    "user5_password":"Testing@123",
+
+    "user2":"Xavier@yopmail.com",
+    "user2_password":"Testing@123",
+
+    "user3":"abd@yopmail.com",
+    "user3_password":"Testing@1234",
+
+    "user4":"david@yopmail.com",
+    "user4_password":"Testing@1234",
+
+    "user6":"sugumaran.n@tickingminds.com",
+    "user6_password":"Otc@123456",
+
+    "user1":"smanoj3101work@gmail.com",
+    "user1_password":"Testing@123",
+
+   
+    
+
+    "TC_01":{
+        "chooseCFP":"Quick CFP",
+        "multiple_responder":false,
+        "Power_swapping":99999,
+        "Fisrt_choice":"Import",
+        "Result_Published":true,
+       
+    
+        "Minimum_Quantum":true,
+        "Minimum_QuantumValue":"0.01",
+    
+        "imp_start_date" :"2024-03-05",
+        "imp_end_date" :"2024-03-05",
+        "imp_start_time":"20:00",
+        "imp_end_time":"23:30",
+        "Quantum_value":"99999",
+    
+        "exp_start_date" : "2024-03-06",
+        "exp_end_date" :"2024-03-06",
+        "exp_start_time" :"03:00",
+        "exp_end_time" :"06:00",
+    
+        "response_days":"00",
+        "response_hours":"00",
+        "response_mins":"25",
+    
+        "award_days":"00",
+        "award_hours":"00",
+        "award_mins":"25",
+    
+        "loa_issuance_days":"00",
+        "loa_issuance_hours":"00",
+        "loa_issuance_mins":"25",
+    
+        "loa_acceptance_days":"00",
+        "loa_acceptance_hours":"00",
+        "loa_acceptance_mins":"25",
+      
+       
+        "index":0,
+        "Settlement_Price":"0.01",
+        "query_Box" :true,
+        "Ceiling_Base_Return":true,
+        "Ceiling_Base_Return_value":"0.01",
+        "custom_Guests":"monicaa@yopmail.com",
+        "remarks":"Good",
+    
+        "minQuantumValue1":"0.01",
+        "ReturnValue1":"0.01",
+    
+        "application_no":"909999",
+        "route":"YES",
+        "GTAM":"YES",
+        "source_of_generation":"SOLAR",
+        "RPO":"NO",
+        "TGNA":"YES"
+    
+       },
+
+
+       "TC_02":{
+        "chooseCFP":"Custom CFP",
+        "multiple_responder":true,
+        "Power_swapping":99999,
+        "Fisrt_choice":"Import",
+        "Result_Published":false,
+       
+    
+        "Minimum_Quantum":true,
+        "Minimum_QuantumValue":"99998",
+    
+        "imp_start_date" :"2026-01-03",
+        "imp_end_date" :"2026-01-03",
+        "imp_start_time":"00:30",
+        "imp_end_time":"04:30",
+        "Quantum_value":"99999",
+    
+        "exp_start_date" : "2026-01-04",
+        "exp_end_date" :"2026-01-04",
+        "exp_start_time" :"08:30",
+        "exp_end_time" :"12:00",
+    
+        "response_days":"00",
+        "response_hours":"06",
+        "response_mins":"30",
+    
+        "award_days":"00",
+        "award_hours":"06",
+        "award_mins":"30",
+    
+        "loa_issuance_days":"00",
+        "loa_issuance_hours":"04",
+        "loa_issuance_mins":"30",
+    
+        "loa_acceptance_days":"00",
+        "loa_acceptance_hours":"04",
+        "loa_acceptance_mins":"30",
+      
+       
+        "index":1,
+        "Settlement_Price":"No",
+        "query_Box" :false,
+        "Ceiling_Base_Return":true,
+        "Ceiling_Base_Return_value":"999.99",
+        "custom_Guests":"",
+        "remarks":"No",
+    
+        "minQuantumValue1":"99999",
+        "ReturnValue1":"999.98",
+
+        "minQuantumValue2":"99998",
+        "ReturnValue2":"999.98",
+
+        "minQuantumValue3":"99998",
+        "ReturnValue3":"999.98",
+    
+        "application_no":"54657",
+        "route":"YES",
+        "GTAM":"YES",
+        "source_of_generation":"SOLAR",
+        "RPO":"NO",
+        "TGNA":"YES"
+    
+       },
+
+
+       "TC_03":{
+        "chooseCFP":"Custom CFP",
+        "multiple_responder":true,
+        "Power_swapping":0.01,
+        "Fisrt_choice":"Import",
+        "Result_Published":true,
+       
+    
+        "Minimum_Quantum":false,
+        "Minimum_QuantumValue":"",
+    
+        "imp_start_date" :"2026-01-06",
+        "imp_end_date" :"2026-01-06",
+        "imp_start_time":"16:30",
+        "imp_end_time":"20:30",
+        "Quantum_value":"0.01",
+    
+        "exp_start_date" : "2026-01-07",
+        "exp_end_date" :"2026-01-07",
+        "exp_start_time" :"00:00",
+        "exp_end_time" :"04:00",
+    
+        "response_days":"03",
+        "response_hours":"03",
+        "response_mins":"30",
+    
+        "award_days":"04",
+        "award_hours":"04",
+        "award_mins":"40",
+    
+        "loa_issuance_days":"02",
+        "loa_issuance_hours":"02",
+        "loa_issuance_mins":"20",
+    
+        "loa_acceptance_days":"06",
+        "loa_acceptance_hours":"06",
+        "loa_acceptance_mins":"59",
+      
+       
+        "index":2,
+        "Settlement_Price":"No",
+        "query_Box" :false,
+        "Ceiling_Base_Return":false,
+        "Ceiling_Base_Return_value":"",
+        "custom_Guests":"",
+        "remarks":"No",
+    
+        "minQuantumValue1":"",
+        "ReturnValue1":"99",
+
+        "minQuantumValue2":"",
+        "ReturnValue2":"89",
+        
+        "minQuantumValue3":"",
+        "ReturnValue3":"47",
+    
+        "application_no":"909092",
+        "route":"YES",
+        "GTAM":"YES",
+        "source_of_generation":"SOLAR",
+        "RPO":"NO",
+        "TGNA":"YES"
+    
+       },
+
+       "TC_04":{
+        "chooseCFP":"Quick CFP",
+        "multiple_responder":false,
+        "Power_swapping":0.01,
+        "Fisrt_choice":"Import",
+        "Result_Published":false,
+       
+    
+        "Minimum_Quantum":false,
+        "Minimum_QuantumValue":"",
+    
+        "imp_start_date" :"2024-02-15",
+        "imp_end_date" :"2026-02-04",
+        "imp_start_time":"20:00",
+        "imp_end_time":"23:30",
+        "Quantum_value":"0.01",
+    
+        "exp_start_date" : "2026-02-05",
+        "exp_end_date" :"2026-02-05",
+        "exp_start_time" :"03:00",
+        "exp_end_time" :"06:00",
+    
+        "response_days":"00",
+        "response_hours":"01",
+        "response_mins":"25",
+    
+        "award_days":"00",
+        "award_hours":"01",
+        "award_mins":"25",
+    
+        "loa_issuance_days":"00",
+        "loa_issuance_hours":"01",
+        "loa_issuance_mins":"25",
+    
+        "loa_acceptance_days":"00",
+        "loa_acceptance_hours":"01",
+        "loa_acceptance_mins":"25",
+      
+       
+        "index":3,
+        "Settlement_Price":"999",
+        "query_Box" :true,
+        "Ceiling_Base_Return":true,
+        "Ceiling_Base_Return_value":"0.01",
+        "custom_Guests":"monicaa@yopmail.com",
+        "remarks":"Nil",
+    
+        "minQuantumValue1":"",
+        "ReturnValue1":"0.01",
+    
+        "application_no":"909999",
+        "route":"YES",
+        "GTAM":"YES",
+        "source_of_generation":"SOLAR",
+        "RPO":"NO",
+        "TGNA":"YES"
+
+    },
+
+
+    "TC_05":{
+        "chooseCFP":"Custom CFP",
+        "multiple_responder":true,
+        "Power_swapping":99999,
+        "Fisrt_choice":"Import",
+        "Result_Published":false,
+       
+    
+        "Minimum_Quantum":true,
+        "Minimum_QuantumValue":"0.01",
+    
+        "imp_start_date" :"2026-01-07",
+        "imp_end_date" :"2026-01-07",
+        "imp_start_time":"10:00",
+        "imp_end_time":"14:30",
+        "Quantum_value":"99999",
+    
+        "exp_start_date" : "2026-01-07",
+        "exp_end_date" :"2026-01-07",
+        "exp_start_time" :"19:00",
+        "exp_end_time" :"22:00",
+    
+        "response_days":"00",
+        "response_hours":"00",
+        "response_mins":"30",
+    
+        "award_days":"00",
+        "award_hours":"06",
+        "award_mins":"45",
+    
+        "loa_issuance_days":"03",
+        "loa_issuance_hours":"23",
+        "loa_issuance_mins":"09",
+    
+        "loa_acceptance_days":"00",
+        "loa_acceptance_hours":"00",
+        "loa_acceptance_mins":"05",
+      
+       
+        "index":6,
+        "Settlement_Price":"999",
+        "query_Box" :true,
+        "Ceiling_Base_Return":false,
+        "Ceiling_Base_Return_value":"",
+        "custom_Guests":"monicaa@yopmail.com, aparnaa@yopmail.com, sanjay@yopmail.com",
+        "remarks":"No",
+    
+        "minQuantumValue1":"0.01",
+        "ReturnValue1":"999",
+
+        "minQuantumValue2":"0.01",
+        "ReturnValue2":"988",
+        
+        "minQuantumValue3":"0.01",
+        "ReturnValue3":"999",
+    
+        "application_no":"343545",
+        "route":"YES",
+        "GTAM":"YES",
+        "source_of_generation":"SOLAR",
+        "RPO":"YES",
+        "TGNA":"YES"
+    
+       },
+
+   "TC_06":{
+    "chooseCFP":"Quick CFP",
+    "multiple_responder":false,
+    "Power_swapping":99999,
+    "Fisrt_choice":"Import",
+    "Result_Published":true,
+   
+
+    "Minimum_Quantum":true,
+    "Minimum_QuantumValue":"99998",
+
+    "imp_start_date" :"2024-03-01",
+    "imp_end_date" :"2024-03-01",
+    "imp_start_time":"20:00",
+    "imp_end_time":"23:30",
+    "Quantum_value":"99999",
+
+    "exp_start_date" : "2026-01-11",
+    "exp_end_date" :"2026-01-11",
+    "exp_start_time" :"03:00",
+    "exp_end_time" :"06:00",
+
+    "response_days":"01",
+    "response_hours":"00",
+    "response_mins":"25",
+
+    "award_days":"00",
+    "award_hours":"00",
+    "award_mins":"25",
+
+    "loa_issuance_days":"01",
+    "loa_issuance_hours":"00",
+    "loa_issuance_mins":"25",
+
+    "loa_acceptance_days":"00",
+    "loa_acceptance_hours":"01",
+    "loa_acceptance_mins":"25",
+  
+
+    "index":0,
+    "Settlement_Price":"0.01",
+    "query_Box" :true,
+    "Ceiling_Base_Return":true,
+    "Ceiling_Base_Return_value":"999.99",
+    "custom_Guests":"",
+    "remarks":"Good",
+
+    "minQuantumValue1":"99999",
+    "ReturnValue1":"999.98",
+
+    "application_no":"909999",
+    "route":"YES",
+    "GTAM":"YES",
+    "source_of_generation":"SOLAR",
+    "RPO":"NO",
+    "TGNA":"YES"
+
+   },
+
+
+
+   "TC_07":{
+    "chooseCFP":"Custom CFP",
+    "multiple_responder":true,
+    "Power_swapping":10,
+    "Fisrt_choice":"Import",
+    "Result_Published":true,
+   
+
+    "Minimum_Quantum":true,
+    "Minimum_QuantumValue":"0.01",
+
+    "imp_start_date" :"202-03-06",
+    "imp_end_date" :"2024-03-06",
+    "imp_start_time":"18:00",
+    "imp_end_time":"23:30",
+    "Quantum_value":"10",
+
+    "exp_start_date" : "2026-03-02",
+    "exp_end_date" :"2026-03-02",
+    "exp_start_time" :"03:00",
+    "exp_end_time" :"06:00",
+
+    "response_days":"00",
+    "response_hours":"04",
+    "response_mins":"25",
+
+    "award_days":"00",
+    "award_hours":"04",
+    "award_mins":"25",
+
+    "loa_issuance_days":"00",
+    "loa_issuance_hours":"00",
+    "loa_issuance_mins":"05",
+
+    "loa_acceptance_days":"01",
+    "loa_acceptance_hours":"00",
+    "loa_acceptance_mins":"25",
+  
+   
+    "index":2,
+    "Settlement_Price":"999",
+    "query_Box" :false,
+    "Ceiling_Base_Return":true,
+    "Ceiling_Base_Return_value":"0.01",
+    "custom_Guests":"monica.k.2019.bt@rajalakshmi.edu.in, monicaa@yopmail.com",
+    "remarks":"Good",
+
+    "minQuantumValue1":"0.01",
+    "ReturnValue1":"0.01",
+
+    "minQuantumValue2":"0.02",
+    "ReturnValue2":"0.01",
+    
+    "minQuantumValue3":"0.03",
+    "ReturnValue3":"0.01",
+
+    "application_no":"909092",
+    "route":"YES",
+    "GTAM":"YES",
+    "source_of_generation":"SOLAR",
+    "RPO":"NO",
+    "TGNA":"YES"
+
+   },
+  
+
+
+   "TC_08":{
+    "chooseCFP":"Quick CFP",
+    "multiple_responder":false,
+    "Power_swapping":"99999",
+    "Fisrt_choice":"Import",
+    "Result_Published":false,
+    
+    "Minimum_Quantum":true,
+    "Minimum_QuantumValue":"99998",
+
+    "imp_start_date" :"2026-01-10",
+    "imp_end_date" :"2026-01-10",
+    "imp_start_time":"01:00",
+    "imp_end_time":"05:30",
+    "Quantum_value":"99999",
+
+    "exp_start_date" : "2026-01-10",
+    "exp_end_date" :"2026-01-10",
+    "exp_start_time" : "11:00",
+    "exp_end_time" :"15:00",
+
+    "response_days":"00",
+    "response_hours":"00",
+    "response_mins":"25",
+
+    "award_days":"15",
+    "award_hours":"00",
+    "award_mins":"25",
+
+    "loa_issuance_days":"00",
+    "loa_issuance_hours":"04",
+    "loa_issuance_mins":"25",
+
+    "loa_acceptance_days":"00",
+    "loa_acceptance_hours":"00",
+    "loa_acceptance_mins":"25",
+  
+    "Quantum":"99999",
+    "index":0,
+    "Settlement_Price":"0",
+    "query_Box" :true,
+    "Ceiling_Base_Return":false,
+    "Ceiling_Base_Return_value":"",
+    "custom_Guests":"monicaa@yopmail.com",
+    "remarks":"",
+
+    "minQuantumValue1":"99998",
+    "ReturnValue1":"999.99",
+
+    "application_no":"909999",
+    "route":"YES",
+    "GTAM":"YES",
+    "source_of_generation":"SOLAR",
+    "RPO":"NO",
+    "TGNA":"YES"
+
+   },
+
+
+   "TC_09":{
+    "chooseCFP":"Quick CFP",
+    "multiple_responder":false,
+    "Power_swapping":"99999",
+    "Fisrt_choice":"Import",
+    "Result_Published":false,
+    
+    "Minimum_Quantum":true,
+    "Minimum_QuantumValue":"99998",
+
+    "imp_start_date" :"2026-01-21",
+    "imp_end_date" :"2026-01-21",
+    "imp_start_time":"01:00",
+    "imp_end_time":"04:30",
+    "Quantum_value":"99999",
+
+    "exp_start_date" : "2026-01-21",
+    "exp_end_date" :"2026-01-21",
+    "exp_start_time" : "20:00",
+    "exp_end_time" :"24:00",
+
+    "response_days":"00",
+    "response_hours":"00",
+    "response_mins":"02",
+
+    "award_days":"00",
+    "award_hours":"00",
+    "award_mins":"05",
+
+    "loa_issuance_days":"00",
+    "loa_issuance_hours":"00",
+    "loa_issuance_mins":"05",
+
+    "loa_acceptance_days":"00",
+    "loa_acceptance_hours":"00",
+    "loa_acceptance_mins":"25",
+  
+    "Quantum":"99999",
+    "index":7,
+    "Settlement_Price":"0",
+    "query_Box" :false,
+    "Ceiling_Base_Return":false,
+    "Ceiling_Base_Return_value":"",
+    "custom_Guests":"monicaa@yopmail.com",
+    "remarks":"",
+
+    "minQuantumValue1":"99999",
+    "ReturnValue1":"999"
+
+   },
+
+
+   
+   "TC_10":{
+    "chooseCFP":"Custom CFP",
+    "multiple_responder":false,
+    "Power_swapping":"200",
+    "Fisrt_choice":"Import",
+    "Result_Published":true,
+    
+    "Minimum_Quantum":true,
+    "Minimum_QuantumValue":"99998",
+
+    "imp_start_date" :"2026-01-21",
+    "imp_end_date" :"2026-01-21",
+    "imp_start_time":"01:00",
+    "imp_end_time":"04:30",
+    "Quantum_value":"99999",
+
+    "exp_start_date" : "2026-01-21",
+    "exp_end_date" :"2026-01-21",
+    "exp_start_time" : "20:00",
+    "exp_end_time" :"24:00",
+
+    "response_days":"00",
+    "response_hours":"00",
+    "response_mins":"10",
+
+    "award_days":"00",
+    "award_hours":"00",
+    "award_mins":"05",
+
+    "loa_issuance_days":"00",
+    "loa_issuance_hours":"00",
+    "loa_issuance_mins":"02",
+
+    "loa_acceptance_days":"00",
+    "loa_acceptance_hours":"00",
+    "loa_acceptance_mins":"25",
+  
+    "Quantum":"99999",
+    "index":7,
+    "Settlement_Price":"0",
+    "query_Box" :true,
+    "Ceiling_Base_Return":false,
+    "Ceiling_Base_Return_value":"",
+    "custom_Guests":"monicaa@yopmail.com,sanjaykumar.s@tickingminds.com",
+    "remarks":"",
+
+    "minQuantumValue1":"99999",
+    "ReturnValue1":"567"
+
+   },
+
+
+   "TC_11":{
+    "chooseCFP":"Quick CFP",
+    "multiple_responder":false,
+    "Power_swapping":"1000",
+    "Fisrt_choice":"Import",
+    "Result_Published":true,
+    
+    "Minimum_Quantum":true,
+    "Minimum_QuantumValue":"99998",
+
+    "imp_start_date" :"2026-01-21",
+    "imp_end_date" :"2026-01-21",
+    "imp_start_time":"01:00",
+    "imp_end_time":"04:30",
+    "Quantum_value":"99999",
+
+    "exp_start_date" : "2026-01-21",
+    "exp_end_date" :"2026-01-21",
+    "exp_start_time" : "20:00",
+    "exp_end_time" :"24:00",
+
+    "response_days":"00",
+    "response_hours":"00",
+    "response_mins":"10",
+
+    "award_days":"00",
+    "award_hours":"00",
+    "award_mins":"05",
+
+    "loa_issuance_days":"00",
+    "loa_issuance_hours":"00",
+    "loa_issuance_mins":"05",
+
+    "loa_acceptance_days":"00",
+    "loa_acceptance_hours":"00",
+    "loa_acceptance_mins":"02",
+  
+    "Quantum":"99999",
+    "index":7,
+    "Settlement_Price":"0",
+    "query_Box" :true,
+    "Ceiling_Base_Return":false,
+    "Ceiling_Base_Return_value":"",
+    "custom_Guests":"monicaa@yopmail.com",
+    "remarks":"",
+
+    "minQuantumValue1":"99999",
+    "ReturnValue1":"567"
+
+   },
+
+
+   "TC_12":{
+    "chooseCFP":"Quick CFP",
+    "multiple_responder":false,
+    "Power_swapping":"2000",
+    "Fisrt_choice":"Import",
+    "Result_Published":true,
+    
+    "Minimum_Quantum":true,
+    "Minimum_QuantumValue":"99998",
+
+    "imp_start_date" :"2026-01-21",
+    "imp_end_date" :"2026-01-21",
+    "imp_start_time":"01:00",
+    "imp_end_time":"04:30",
+    "Quantum_value":"99999",
+
+    "exp_start_date" : "2026-01-21",
+    "exp_end_date" :"2026-01-21",
+    "exp_start_time" : "20:00",
+    "exp_end_time" :"24:00",
+
+    "response_days":"00",
+    "response_hours":"00",
+    "response_mins":"05",
+
+    "award_days":"00",
+    "award_hours":"00",
+    "award_mins":"03",
+
+    "loa_issuance_days":"00",
+    "loa_issuance_hours":"00",
+    "loa_issuance_mins":"05",
+
+    "loa_acceptance_days":"00",
+    "loa_acceptance_hours":"00",
+    "loa_acceptance_mins":"05",
+  
+    "Quantum":"99999",
+    "index":7,
+    "Settlement_Price":"0",
+    "query_Box" :true,
+    "Ceiling_Base_Return":false,
+    "Ceiling_Base_Return_value":"",
+    "custom_Guests":"monicaa@yopmail.com",
+    "remarks":"",
+
+    "minQuantumValue1":"99999",
+    "ReturnValue1":"98"
+
+
+   }
+    
+}
