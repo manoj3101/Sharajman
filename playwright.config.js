@@ -51,12 +51,12 @@ module.exports = defineConfig({
     //   args: ['--start-fullscreen'] } },
     // },
 
-    // {
-    //   name: 'firefox',
-    //   use: { ...devices['Desktop Firefox'],
-    //   launchOptions: {
-    //   args: ['--kiosk'] } },
-    // },
+    {
+      name: 'firefox',
+      use: {
+        ...devices['Desktop Firefox']
+      },
+    },
 
     // {
     //   name: 'webkit',
@@ -83,12 +83,7 @@ module.exports = defineConfig({
     //     launchOptions: {
     //       args: ['--start-fullscreen']
     //     },
-
-    //     // Use environment variables for user credentials
-    //     username: process.env.USER1,
-    //     password: process.env.USER1_PASSWORD,
     //   }
-
     // },
 
     // {
@@ -98,26 +93,18 @@ module.exports = defineConfig({
     //     launchOptions: {
     //       args: ['--start-fullscreen']
     //     },
-
-    //     // Use environment variables for user credentials
-    //     username: process.env.USER2,
-    //     password: process.env.USER2_PASSWORD,
     //   },
     // },
 
-    {
-      name: 'firefox',
-      use: {
-        ...devices['Desktop Firefox'],
-        launchOptions: {
-          args: ['--kiosk']
-        },
-
-        // Use environment variables for user credentials
-        username: process.env.USER3,
-        password: process.env.USER3_PASSWORD,
-      },
-    },
+    // {
+    //   name: 'firefox',
+    //   use: {
+    //     ...devices['Desktop Firefox'],
+    //     launchOptions: {
+    //       args: ['--kiosk']
+    //     },
+    //   },
+    // },
 
   ],
 
@@ -130,6 +117,6 @@ module.exports = defineConfig({
   //   url: 'http://127.0.0.1:3000',
   //   reuseExistingServer: !process.env.CI,
   // },
-  
+
 });
 

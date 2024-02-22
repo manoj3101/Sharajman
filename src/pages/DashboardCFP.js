@@ -3,22 +3,7 @@ const tabSwitcher = require('../hooks/tabSwitcher');
 const data = require("../helper/utils/data.json");
 
 
-
-// let currentDate = new Date();
-// // Get current time components
-// let currentHours = currentDate.getHours();
-// let currentMinutes = currentDate.getMinutes();
-
-// const minutesToAdd = 2;
-// const minutesToAdd1 = 17;
-
-// // Calculate the new time
-// const newMinutes = ((currentMinutes + minutesToAdd) % 60).toString();
-// const newMinutes1 = ((currentMinutes + minutesToAdd1) % 60).toString();
-
-// console.log(`Current Time ${currentHours.toString()}:${currentMinutes}`);
-// console.log(`Live Start at ${currentHours.toString()}:${newMinutes}`);
-// console.log("Live Ending Minute :" + newMinutes1);
+//made changes here
 
 
 
@@ -143,6 +128,10 @@ class DashboardCFP {
 
     //Import/Export
     async firstChoice(choice) {
+        choice = choice.toLowerCase().replace(/\b\w/g, function (char) {
+            return char.toUpperCase();
+        });
+        console.log(`First choice === ${choice}`);
         await this.page.locator("//label[contains(text(),'" + choice + "')]").check();
     }
 
@@ -417,9 +406,10 @@ class DashboardCFP {
         //Place Response        
         //If it has Min Quantum
         if (await this.page.isVisible("//input[@formcontrolname='min_quantum']")) {
-            await this.page.locator("//input[@formcontrolname='min_quantum']").fill(minQuantumValue1);
-            await this.page.locator("//input[@formcontrolname='min_quantum']").fill('');
-            await this.page.locator("//input[@formcontrolname='min_quantum']").type(minQuantumValue1);
+            // await this.page.locator("//input[@formcontrolname='min_quantum']").fill(minQuantumValue1);
+            // await this.page.locator("//input[@formcontrolname='min_quantum']").fill('');
+            // await this.page.locator("//input[@formcontrolname='min_quantum']").type(minQuantumValue1);
+            await this.page.locator("//input[@formcontrolname='min_quantum']").pressSequentially(minQuantumValue1); 
         } else {
             console.log("--------------------X No Min Quantum X----------------------");
         }

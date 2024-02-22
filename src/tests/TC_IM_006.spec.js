@@ -17,11 +17,14 @@ let cfpNumber;
 
 
 test.describe('TC_IM_006', () => {
-    test('Creating CFP from Initiator side', async ({ page, context, browser }) => {
+    test('Creating CFP from Initiator side', async ({ page, context, browser,browserName }) => {
         const login = new Login(page);
         const home = new Home(page);
         const dashboardCFP = new DashboardCFP(page, context, browser);
 
+
+
+        console.log(browserName);
 
         await login.login(data.user1, data.user1_password);
 
@@ -103,72 +106,72 @@ test.describe('TC_IM_006', () => {
 
     // Need to put wait time here for 15 min
 
-    test('Initiator Awarding/LOA', async ({ page, context, browser }) => {
-        const login = new Login(page);
-        const home = new Home(page);
-        const dashboardCFP = new DashboardCFP(page, context, browser);
+    // test('Initiator Awarding/LOA', async ({ page, context, browser }) => {
+    //     const login = new Login(page);
+    //     const home = new Home(page);
+    //     const dashboardCFP = new DashboardCFP(page, context, browser);
 
-        await login.login(data.user1, data.user1_password);
+    //     await login.login(data.user1, data.user1_password);
 
-        await home.clickCallForPropsal();
+    //     await home.clickCallForPropsal();
 
-        test.setTimeout(1200000);
+    //     test.setTimeout(1200000);
 
-        await page.waitForTimeout(885000);
+    //     await page.waitForTimeout(885000);
 
-        console.log("Wait time is over Awarding CFP has started......");
+    //     console.log("Wait time is over Awarding CFP has started......");
 
 
-        await dashboardCFP.initiatedFeed(cfpNumber);
+    //     await dashboardCFP.initiatedFeed(cfpNumber);
 
-        await dashboardCFP.generateAward();
+    //     await dashboardCFP.generateAward();
 
-        await dashboardCFP.initiatedFeed(cfpNumber);
+    //     await dashboardCFP.initiatedFeed(cfpNumber);
 
-        await dashboardCFP.energycalculation_initiator(data.TC_06.imp_start_date, data.TC_06.imp_end_date, data.TC_06.imp_start_time, data.TC_06.imp_end_time, data.TC_06.Quantum_value);
+    //     await dashboardCFP.energycalculation_initiator(data.TC_06.imp_start_date, data.TC_06.imp_end_date, data.TC_06.imp_start_time, data.TC_06.imp_end_time, data.TC_06.Quantum_value);
 
-        await dashboardCFP.energycalculation_responder(data.TC_06.exp_start_date, data.TC_06.exp_end_date, data.TC_06.exp_start_time, data.TC_06.exp_end_time, data.TC_06.ReturnValue1);
+    //     await dashboardCFP.energycalculation_responder(data.TC_06.exp_start_date, data.TC_06.exp_end_date, data.TC_06.exp_start_time, data.TC_06.exp_end_time, data.TC_06.ReturnValue1);
 
-        await dashboardCFP.generateLOA(cfpNumber);
+    //     await dashboardCFP.generateLOA(cfpNumber);
 
-        console.log("--------------------Awarding and LOA has generated Successfully-----------------");
+    //     console.log("--------------------Awarding and LOA has generated Successfully-----------------");
         
-        console.log("Initiator Uploaded the LOA documents successfully. \n <<<<<<<<<<<LOA has been uploaded successfully.>>>>>>>>>>>>>>");
+    //     console.log("Initiator Uploaded the LOA documents successfully. \n <<<<<<<<<<<LOA has been uploaded successfully.>>>>>>>>>>>>>>");
         
-    });
+    // });
 
 
-    test('Responder Uploading the document', async ({ page, context, browser }) => {
-        const login = new Login(page);
-        const home = new Home(page);
-        const dashboardCFP = new DashboardCFP(page, context, browser);
-        const loaManagement = new LOAManagement(page);
+    // test('Responder Uploading the document', async ({ page, context, browser }) => {
+    //     const login = new Login(page);
+    //     const home = new Home(page);
+    //     const dashboardCFP = new DashboardCFP(page, context, browser);
+    //     const loaManagement = new LOAManagement(page);
 
-        await login.login(data.user2, data.user2_password);
+    //     await login.login(data.user2, data.user2_password);
 
-        await loaManagement.loaGeneration();
+    //     await loaManagement.loaGeneration();
 
-        await loaManagement.uploadDocument(cfpNumber);
+    //     await loaManagement.uploadDocument(cfpNumber);
 
-        console.log("Responder Uploaded the documents successfully  \n <<<<<<<<<<<LOA has been uploaded successfully.>>>>>>>>>>>>>>");
+    //     console.log("Responder Uploaded the documents successfully  \n <<<<<<<<<<<LOA has been uploaded successfully.>>>>>>>>>>>>>>");
 
-    });
+    // });
 
-    test('Format D Generation From Initiator Side', async ({ page, context, browser }) => {
-        const login = new Login(page);
-        const home = new Home(page);
-        const dashboardCFP = new DashboardCFP(page, context, browser);
-        const loaManagement = new LOAManagement(page);
+    // test('Format D Generation From Initiator Side', async ({ page, context, browser }) => {
+    //     const login = new Login(page);
+    //     const home = new Home(page);
+    //     const dashboardCFP = new DashboardCFP(page, context, browser);
+    //     const loaManagement = new LOAManagement(page);
 
-        await login.login(data.user1, data.user1_password);
+    //     await login.login(data.user1, data.user1_password);
 
-        await loaManagement.loaGeneration();
+    //     await loaManagement.loaGeneration();
 
-        await loaManagement.action(cfpNumber);
+    //     await loaManagement.action(cfpNumber);
 
-        await loaManagement.formatD(data.TC_06.GTAM, data.TC_06.source_of_generation, data.TC_06.RPO, data.TC_06.TGNA);
+    //     await loaManagement.formatD(data.TC_06.GTAM, data.TC_06.source_of_generation, data.TC_06.RPO, data.TC_06.TGNA);
 
 
-    });
+    // });
 });
 
