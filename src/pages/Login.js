@@ -10,7 +10,7 @@ class Login {
     }
 
     async login(email, password) {
-        await this.page.goto(data.URL);
+        await this.page.goto(data.URL,{ waitUntil: 'load' });
         await this.page.getByPlaceholder('Email Address').fill(email);
         await this.page.getByPlaceholder('Password').fill(password);
         await this.page.getByRole('button', { name: 'Login' }).click({ timeout: 50000 });

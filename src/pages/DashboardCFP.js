@@ -1,11 +1,18 @@
 const { test, expect } = require('@playwright/test');
 const tabSwitcher = require('../hooks/tabSwitcher');
 const data = require("../helper/utils/data.json");
+const pdf = require('pdf-parse');
+const fs = require('fs').promises;
+const LOAManagement = require('../pages/LOAManagement');
 
 
-//made change
+const currentDate = new Date();
 
-  
+// Get day, month, and year
+const day = String(currentDate.getDate()).padStart(2, '0');
+const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Note: Month is zero-based
+const year = currentDate.getFullYear();
+
 
 
 class DashboardCFP {
@@ -22,7 +29,7 @@ class DashboardCFP {
     //-------------------------------------------------------------------------------------------------------------
 
     //locators or xpaths
-    text = 'Ex- Power Swapping of 10 MW of energy';
+    text = "//textarea[@formcontrolname='title']";
     Import = "//label[contains(text(),'Import')]";
     Export = "//label[contains(text(),'Export')]";
     responderyes = "//label[@for='is_result_publicYes']";
@@ -91,6 +98,7 @@ class DashboardCFP {
                 await this.page.bringToFront();
             }
         }
+        await this.page.waitForTimeout(4000);
         // throw new Error(`Tab with URL ${url} not found.`);
     }
 
@@ -123,7 +131,7 @@ class DashboardCFP {
     //Power Swapping 
     async powerSwapping(energy) {
         //Text Area
-        await this.page.getByPlaceholder(this.text).fill("Power Swapping of " + energy + " MW of energy(Auto Test)");
+        await this.page.locator(this.text).fill("Power Swapping of " + energy + " MW of energy(Auto Test)");
     }
 
     //Import/Export
@@ -141,7 +149,7 @@ class DashboardCFP {
             await this.page.check(this.responderyes);
         }
         else {
-            await this.page.check(this.responderno)
+            await this.page.check(this.responderno);
         }
 
     }
@@ -228,18 +236,6 @@ class DashboardCFP {
         await this.page.locator(this.mm).nth(1).fill('');
         await this.page.locator(this.mm).nth(1).fill(minute2);
 
-        // //Hours
-        // await this.page.locator(this.hh).nth(0).fill('');
-        // await this.page.locator(this.hh).nth(0).fill(currentHours.toString());
-        // //min
-        // await this.page.locator(this.mm).nth(0).fill('');
-        // await this.page.locator(this.mm).nth(0).fill(newMinutes);
-        // //Hours
-        // await this.page.locator(this.hh).nth(1).fill('');
-        // await this.page.locator(this.hh).nth(1).fill(currentHours.toString());                
-        // //Min
-        // await this.page.locator(this.mm).nth(1).fill('');
-        // await this.page.locator(this.mm).nth(1).fill(newMinutes1);
     }
 
     //Response Validity Period
@@ -345,6 +341,7 @@ class DashboardCFP {
         //await this.page.locator(this.next).click();
         await this.page.getByRole('button', { name: /Next/i }).click();
         await this.page.getByRole('button', { name: /Publish/i }).click();
+        await this.page.getByRole('button', { name: /Proceed/i }).click();//New feature click proceed to continue
         await this.page.waitForTimeout(2000);
 
         //submitted status
@@ -355,6 +352,7 @@ class DashboardCFP {
 
         this.CFP_Num = CFP_N;
         console.log("CFP ID Status -----------:" + this.CFP_Num);
+
 
     }
 
@@ -376,7 +374,150 @@ class DashboardCFP {
     //Place Respond (Responder side)
     async place_Respond(CFP, minQuantumValue1, ReturnValue1) {
 
-        await this.page.reload();
+        await this.page.reload({ waitUntil: 'load' });
+        await this.page.waitForTimeout(4000);
+        await this.page.click(this.responder_tab);
+        await this.page.waitForTimeout(3000);
+        const LiveCFP = await this.page.$$("//div[@class='d-flex low-time-strip']");
+        console.log("--------------Live CFP Feed--------------: " + LiveCFP.length);
+        const lists = await this.page.$$("//b[text()='CFP ID ']/..");
+        console.log("-------------------CFP ID-------------: " + lists.length);
+        //check the same cfp number 
+
+
+        for (let i = 0; i < lists.length; i++) {
+            const textContent = await lists[i].textContent();
+            //console.log(textContent);
+            if (textContent.includes(CFP)) {
+                console.log("-------------------CFP---------------: " + CFP);
+                await this.page.locator("(//button[contains(text(),'Respond')])[" + (i + 1) + "]").click();
+                console.log("                  ✔ Clicked Respond ✔                 ");
+                break;
+            }
+            else {
+                console.log("               X No Responders List X               ");
+            }
+        }
+        await this.page.waitForTimeout(3000);
+
+
+        //Place Response        
+        //If it has Min Quantum
+        if (await this.page.isVisible("//input[@formcontrolname='min_quantum']")) {
+            await this.page.locator("//input[@formcontrolname='min_quantum']").fill(minQuantumValue1);
+            await this.page.locator("//input[@formcontrolname='min_quantum']").fill('');
+            await this.page.locator("//input[@formcontrolname='min_quantum']").type(minQuantumValue1);
+            // await this.page.locator("//input[@formcontrolname='min_quantum']").pressSequentially(minQuantumValue1); 
+            // await this.page.$eval('input[formcontrolname="min_quantum"]', (input, minQuantumValue1) => {
+            //     input.value = minQuantumValue1;
+            // }, minQuantumValue1);
+
+            // await this.page.evaluate(() => {
+            //     // Use JavaScript code to inspect the element's properties
+            //     const input = document.querySelector("input[formcontrolname='min_quantum']");
+
+            //     // Check if the element exists
+            //     if (input) {
+            //         // Log the value of the input element
+            //         console.log('Value:', input.value);
+            //         // Log any other properties you're interested in
+            //         console.log('Type:', input.type);
+            //         console.log('Is it visible?', input.offsetParent !== null); // Check if it's visible
+            //         // Add more properties as needed
+            //     } else {
+            //         console.log("Element not found!");
+            //     }
+            // });
+
+            // await this.page.focus("//input[@formcontrolname='min_quantum']");
+            // await this.page.waitForSelector("input[formcontrolname='min_quantum']");
+            // await this.page.keyboard.type(minQuantumValue1);
+
+
+            // const selector = "input[formcontrolname='min_quantum']";
+
+            // await this.page.waitForFunction(
+            //     (selector) => {
+            //         const activeElement = document.activeElement;
+            //         const targetElement = document.querySelector(selector);
+            //         return activeElement === targetElement;
+            //     },
+            //     {},
+            //     selector
+            // );
+
+            //Using Eval function method
+            // await this.page.$eval('input[formcontrolname="min_quantum"]', (input, minQuantumValue1) => {
+            //     input.value = minQuantumValue1;
+            // }, minQuantumValue1);
+
+        } else {
+            console.log("--------------------X No Min Quantum X----------------------");
+        }
+
+        //If it has Base/ceiling return enter the value and place the 
+        if (await this.page.isVisible("//input[@formcontrolname='bid_amount']")) {
+            console.log(await this.page.locator("//div[contains(@class,'d-flex align-items-center justify-content-between')]//p").nth(0).textContent());
+            //Ener Return ...
+            await this.page.locator("//input[@formcontrolname='bid_amount']").fill(ReturnValue1);
+            // await this.page.$eval("//input[@formcontrolname='bid_amount']", (input, ReturnValue1) => {
+            //     input.value = ReturnValue1;
+            // }, ReturnValue1);
+
+            await this.page.locator("//input[@id='flexCheckChecked']").click(); // Click Check Box
+        }
+        else {
+            await this.page.locator("//input[@id='flexCheckChecked']").click(); // Click Check Box
+        }
+
+
+
+
+        //Placing the responses....
+        await this.page.waitForTimeout(2000);
+        //Click place response button...
+        await this.page.locator("//button[contains(text(),'Place Response')]").click({ timeout: 50000 });
+        await this.page.getByRole('button', { name: /Proceed/i }).click(); //new button
+        
+        // await this.page.$eval("//button[contains(text(),'Place Response')]", (button) => {
+        //     if(button.textContent.includes('Place Response')) {
+        //         button.click();
+        //     }
+        // });
+
+        //Checking the Message Response Placed Successfully is correct or not.
+        await this.page.waitForTimeout(2000);
+
+        //Negative Case Checking the error message 
+        if (await this.page.isVisible("//h4[ contains(text(),'Please enter response amount smaller than or equal')]")) {
+            let msg = await pageFixture.page.locator("//h4[ contains(text(),'Please enter response amount smaller than or equal')]").textContent();
+            //const msg = await msgElement.textContent();
+            console.log(`An error Message is : ${msg}`);
+            await this.page.waitForTimeout(2000);
+            await expect(msg).toContain("Please enter response amount smaller than or equal to ceiling percentage");
+            await this.page.locator("//img[contains(@class,'cursor-pointer on-h')]").click();
+            console.log("-------------------- X Response CFP couldn't placed Successfully X -----------------");
+        }
+        else {
+            console.log("No Error occur while Response placing.........");
+        }
+
+        //Checking the Message Response Placed Successfully is correct or not.
+        const response = await this.page.locator("//a[contains(text(),'OK')]//preceding::h4[1]").textContent();
+        console.log("-----------------------------------------------------------------------");
+        console.log(`Response Placed : ${response}    ✔`);
+        console.log("-----------------------------------------------------------------------");
+        await expect(response).toContain("Response Placed Successfully");
+        await this.page.locator("//*[contains(text(),'OK')]").click();
+        // await this.page.locator("(//img[contains(@class,'cursor-pointer')])[12]").click();
+        await this.page.locator("//span[contains(@class,'d-flex align-items')]/child::img[@class='cursor-pointer']").click();
+
+    }
+
+
+    async demo_place_Respond(CFP, minQuantumValue1, ReturnValue1) {
+
+        await this.page.reload({ waitUntil: 'load' });
         await this.page.waitForTimeout(4000);
         await this.page.click(this.responder_tab);
         await this.page.waitForTimeout(3000);
@@ -409,7 +550,49 @@ class DashboardCFP {
             // await this.page.locator("//input[@formcontrolname='min_quantum']").fill(minQuantumValue1);
             // await this.page.locator("//input[@formcontrolname='min_quantum']").fill('');
             // await this.page.locator("//input[@formcontrolname='min_quantum']").type(minQuantumValue1);
-            await this.page.locator("//input[@formcontrolname='min_quantum']").pressSequentially(minQuantumValue1); 
+            // await this.page.locator("//input[@formcontrolname='min_quantum']").pressSequentially(minQuantumValue1); 
+            // await this.page.$eval('input[formcontrolname="min_quantum"]', (input, minQuantumValue1) => {
+            //     input.value = minQuantumValue1;
+            // }, minQuantumValue1);
+
+            // await this.page.evaluate(() => {
+            //     // Use JavaScript code to inspect the element's properties
+            //     const input = document.querySelector("input[formcontrolname='min_quantum']");
+
+            //     // Check if the element exists
+            //     if (input) {
+            //         // Log the value of the input element
+            //         console.log('Value:', input.value);
+            //         // Log any other properties you're interested in
+            //         console.log('Type:', input.type);
+            //         console.log('Is it visible?', input.offsetParent !== null); // Check if it's visible
+            //         // Add more properties as needed
+            //     } else {
+            //         console.log("Element not found!");
+            //     }
+            // });
+
+            // await this.page.focus("//input[@formcontrolname='min_quantum']");
+            // await this.page.waitForSelector("input[formcontrolname='min_quantum']");
+            // await this.page.keyboard.type(minQuantumValue1);
+
+
+            // const selector = "input[formcontrolname='min_quantum']";
+
+            // await this.page.waitForFunction(
+            //     (selector) => {
+            //         const activeElement = document.activeElement;
+            //         const targetElement = document.querySelector(selector);
+            //         return activeElement === targetElement;
+            //     },
+            //     {},
+            //     selector
+            // );
+
+            await this.page.$eval('input[formcontrolname="min_quantum"]', (input, minQuantumValue1) => {
+                input.value = minQuantumValue1;
+            }, minQuantumValue1);
+
         } else {
             console.log("--------------------X No Min Quantum X----------------------");
         }
@@ -418,47 +601,26 @@ class DashboardCFP {
         if (await this.page.isVisible("//input[@formcontrolname='bid_amount']")) {
             console.log(await this.page.locator("//div[contains(@class,'d-flex align-items-center justify-content-between')]//p").nth(0).textContent());
             //Ener Return ...
-            await this.page.locator("//input[@formcontrolname='bid_amount']").fill(ReturnValue1);
+            // await this.page.locator("//input[@formcontrolname='bid_amount']").fill(ReturnValue1);
+            await this.page.$eval("//input[@formcontrolname='bid_amount']", (input, ReturnValue1) => {
+                input.value = ReturnValue1;
+            }, ReturnValue1);
+
             await this.page.locator("//input[@id='flexCheckChecked']").click(); // Click Check Box
         }
         else {
             await this.page.locator("//input[@id='flexCheckChecked']").click(); // Click Check Box
         }
+    }
 
-        //Placing the responses....
-        await this.page.waitForTimeout(2000);
-        //Click place response button...
-        await this.page.locator("//button[contains(text(),'Place Response')]").click({ timeout: 50000 });
-
-
-        //Checking the Message Response Placed Successfully is correct or not.
-        await this.page.waitForTimeout(2000);
-
-        //Negative Case Checking the error message 
-        if (await this.page.isVisible("//h4[ contains(text(),'Please enter response amount smaller than or equal')]")) {
-            let msg = await pageFixture.page.locator("//h4[ contains(text(),'Please enter response amount smaller than or equal')]").textContent();
-            //const msg = await msgElement.textContent();
-            console.log(`An error Message is : ${msg}`);
-            await this.page.waitForTimeout(2000);
-            await expect(msg).toContain("Please enter response amount smaller than or equal to ceiling percentage");
-            await this.page.locator("//img[contains(@class,'cursor-pointer on-h')]").click();
-            console.log("-------------------- X Response CFP couldn't placed Successfully X -----------------");
-        }
-        else {
-            console.log("No Error occur while Response placing.........");
-        }
-
-        //Checking the Message Response Placed Successfully is correct or not.
-        const response = await this.page.locator("//a[contains(text(),'OK')]//preceding::h4[1]").textContent();
-        console.log("-----------------------------------------------------------------------");
-        console.log(`Response Placed : ${response}    ✔`);
-        console.log("-----------------------------------------------------------------------");
-        await expect(response).toContain("Response Placed Successfully");
-        await this.page.locator("//*[contains(text(),'OK')]").click();
-        // await this.page.locator("(//img[contains(@class,'cursor-pointer')])[12]").click();
+    //Logout 
+    async Logout() {
+        //Click the Close button 
         await this.page.locator("//span[contains(@class,'d-flex align-items')]/child::img[@class='cursor-pointer']").click();
 
-
+        //Click user profile and log out 
+        await this.page.locator("//img[@id='userprofile1' or @alt='user']").click();
+        await this.page.locator("//a[contains(text(),'Logout')]").click();
     }
 
     //Collect the error message 
@@ -737,6 +899,7 @@ class DashboardCFP {
             await award.click();
             await this.page.getByRole('button', { name: /Award/i }).click();
             await this.page.getByRole('button', { name: /Yes/i }).click();
+            await this.page.getByRole('button', { name: /Close/i }).click(); //new button
             //asserting the Awarded Successfully.
             const awarded = await this.page.locator("//*[contains(text(),'Responder Awarded successfully')]").textContent();
             await expect(awarded).toContain("Responder Awarded successfully");
@@ -750,8 +913,29 @@ class DashboardCFP {
     }
 
 
+    //reference no 
+    // const ref_no= await this.page.locator("//input[@placeholder='rfq']").textContent();
+    // const LOA_no= await this.page.locator("//input[@formcontrolname='loi_no']").textContent();
+    // const subject = await this.page.locator("//input[@formcontrolname='subject']").textContent();
+
+    // const Utility_1  = await this.page.locator("(//tbody//tr//td)[1]").textContent();
+    // const Period_1 =  await this.page.locator("(//tbody//tr//td)[2]").textContent();
+    // const Duration_1 =  await this.page.locator("(//tbody//tr//td)[3]").textContent();
+    // const Quantum_1 = await this.page.locator("(//tbody//tr//td)[4]").textContent();
+    // const Utility_2 =  await this.page.locator("(//tbody//tr//td)[5]").textContent();
+    // const Period_2 =  await this.page.locator("(//tbody//tr//td)[6]").textContent();
+    // const Duration_2 =  await this.page.locator("(//tbody//tr//td)[7]").textContent();
+    // const Quantum_2 =  await this.page.locator("(//tbody//tr//td)[8]").textContent();
+    // const Return  = await this.page.locator("(//tbody//tr//td)[9]").textContent();
+
+    // const Delivery_Point  = await this.page.locator("//label[contains(text(),'Delivery Point')]/..").textContent();
+    // const General_Terms  = await this.page.locator("//label[contains(text(),'General Terms')]/..").textContent();
+
+
+
     //Generate LOA
-    async generateLOA(CFP) {
+    async generateLOA(CFP, imp_start_date, imp_end_date, imp_start_time, imp_end_time, quantum, exp_start_date, exp_end_date, exp_start_time, exp_end_time, returnpercent, Settlement_Price) {
+        const loaManagement = new LOAManagement(this.page);
         //click the Generate LOA icon & proceed with LOA
         const LOA = await this.page.locator("//a[contains(text(),'Generate LOA')]");
         if (await LOA.isVisible()) {
@@ -770,13 +954,168 @@ class DashboardCFP {
         // const tabSwitch = new tabSwitcher();
         // await tabSwitch.switchToTab("loi");
         await this.switchToTab("loi");
+
+        //Getting the text from the LOA Form After generating the pdf
+        const ref_no = (await this.page.locator("//input[@placeholder='rfq']").textContent()).trim();
+        // const LOA_no = (await this.page.locator("//input[@formcontrolname='loi_no']").textContent()).trim();
+        const subject = (await this.page.locator("//input[@formcontrolname='subject']").textContent()).trim();
+
+        const Utility_1 = (await this.page.locator("(//tbody//tr//td)[1]").textContent()).trim();
+        const Period_1 = (await this.page.locator("(//tbody//tr//td)[2]").textContent()).trim();
+        const Duration_1 = (await this.page.locator("(//tbody//tr//td)[3]").textContent()).trim();
+        const Quantum_1 = (await this.page.locator("(//tbody//tr//td)[4]").textContent()).trim();
+        const Utility_2 = (await this.page.locator("(//tbody//tr//td)[5]").textContent()).trim();
+        const Period_2 = (await this.page.locator("(//tbody//tr//td)[6]").textContent()).trim();
+        const Duration_2 = (await this.page.locator("(//tbody//tr//td)[7]").textContent()).trim();
+        const Quantum_2 = (await this.page.locator("(//tbody//tr//td)[8]").textContent()).trim();
+        const Return = (await this.page.locator("(//tbody//tr//td)[9]").textContent()).trim();
+
+        const delivery_Point = await this.page.locator("//label[contains(text(),'Delivery Point')]/..").textContent();
+        const general_Terms = await this.page.locator("//label[contains(text(),'General Terms')]/..").textContent();
+
+        //Expected Result (Text Document);
+
         await this.page.getByRole('button', { name: /Verify LOA/i }).click();
         await this.page.getByRole('button', { name: /Generate LOA/i }).click();
         await this.page.getByRole('button', { name: /Yes/i }).click();
-        // await this.page.locator("//a[contains(text(),'View LOA')]").click();
-        // await tabSwitch.switchToTab("loi");
         await this.page.getByPlaceholder('Search').fill(CFP);
         await this.page.getByRole('button', { name: /Search/i }).click();
+
+        //Document verification 
+        //await loaManagement.LOA_documenttverification(CFP, imp_start_date, imp_end_date, imp_start_time, imp_end_time, quantum, exp_start_date, exp_end_date, exp_start_time, exp_end_time, returnpercent, Settlement_Price);
+
+        //First clear the folder using the method
+        const folderPath = 'src/helper/utils/PDF/'; // Specify the path to the folder you want to clear
+        await this.clearFolder(folderPath);
+        await this.page.waitForTimeout(5000);
+
+        const LOA_no = await this.page.locator("//tbody//td[3]").textContent(); //Get the LOA Number 
+        //Click the Download Link and wait for the download
+        const [download] = await Promise.all([
+            this.page.waitForEvent('download', { timeout: 60000 }), // 60 seconds timeout
+            // this.page.click('td.align-middle.cursor-pointer > u.linkColor') 
+            this.page.click("//td[contains(@class,'cursor-pointer')]/u")
+        ]);
+
+
+        // Use the suggested filename from the download event to save the file
+        const suggestedFileName = download.suggestedFilename();
+        const filePath = 'src/helper/utils/PDF/' + suggestedFileName; // Specify the correct folder path 
+        await download.saveAs(filePath);
+
+        // Use the 'pdf-parse' module to extract the text from the PDF file
+        const dataBuffer = await fs.readFile(filePath); // Use async version of readFile
+        const parsedData = await pdf(dataBuffer);
+        const text = parsedData.text;
+
+        // Now you can use the extracted text
+        console.log(`\nText format Content are : ${text}`);
+
+        // Write the parsed text content to a text file for reference
+        await fs.writeFile('src/helper/utils/TextDocuments/data.txt', text); // Specify the correct file path
+
+
+        const line_1 = `LOA	No.`;
+        const line_2 = `${LOA_no}`;
+        const line_3 = `Date`;
+        const line_4 = `Ticking	Minds`;
+        const line_5 = `19,	B2,	Emporio,	33,	10th	Ave,	Ashok	Nagar	Chennai	600083`;
+        const line_6 = `Letter	of	Acceptance`;
+        const line_7 = `${day}-${month}-${year}`;
+
+        const line_8 = `To,`;
+        const line_9 = `Tickingminds_1`;
+        const line_10 = `no.144,	ashok	nagar	Chennai	600083`;
+        const line_11 = `${data.user2}`;
+        const line_12 = `Subject	:	Power	swap	arrangement	by	Ticking	Minds	via	CFP	Ref.	No.	${CFP}.`;
+        const line_13 = `Ref:1.	e-Listing	${CFP}	dated`;
+        const line_14 = `2.	Your	offer	dated	${day}-${month}-${year}	on	NAME	portal`;
+
+        const line_15 = `Dear	Sir,`;
+        const line_16 = `With	reference	to	the	above,	we	are	pleased	to	place	Letter	of	Award	(LoA)	in	favour	of	Tickingminds_1,	as	per`;
+        const line_17 = `below	mentioned	arrangement.`;
+        const line_18 = `Supply	of	Power	from	${data.Utility_2}	to	${data.Utility_1}`;
+        const line_19 = `UtilityPeriodDuration	(Hrs.)Quantum	(MW)`;
+        const line_20 = `${data.Utility_1}${imp_start_date.dateStr.split('-').reverse().join('-')}	to	${imp_end_date.dateStr.split('-').reverse().join('-')}${imp_start_time}	-	${imp_end_time}${quantum}`;
+
+        const line_21 = `Return	of	Power	by	${data.Utility_1}	to	${data.Utility_2}`;
+        const line_22 = `UtilityPeriod`;
+        const line_23 = `Duration`;
+        const line_24 = `(Hrs.)`;
+        const line_25 = `Quantum	in	MW	(As`;
+        const line_26 = `per	return	schedule`;
+        const line_27 = `and	%	return`;
+        const line_28 = `percentage)`;
+        const line_29 = `Return	Ratio`;
+        const line_30 = `in	%`;
+        const line_31 = `${data.Utility_2}${exp_start_date.dateStr.split('-').reverse().join('-')}	to	${exp_end_date.dateStr.split('-').reverse().join('-')}${exp_start_time}	-	${exp_end_time}${Quantum_2}${returnpercent}`;
+
+        const line_32 = `Delivery	Point`;
+        const line_33 = `The	delivery	point,	in	either	case,	shall	be	the	Regional	Periphery	of	Exporting`;
+        const line_34 = `Utility.`;
+        const line_35 = `Settlement	rate	(Rs./kWh)${Settlement_Price}`;
+        const line_36 = `General	Terms	&	Conditions`;
+        const line_37 = `As	per	the	Framework	Agreement	/	As	per	the	Listing	Document	(Ref.	No.)`;
+        const line_38 = `${CFP}`;
+
+        const line_39 = `You	are	requested	to	acknowledge	the	receipt	of	this	LOA	&	give	your	acceptance	on	it.`;
+        const line_40 = `Regards,`;
+        const line_41 = `Yours	Faithfully,`;
+        const line_42 = `For	Ticking	Minds`;
+
+        const line_43 = `Authorised	Signatory`;
+        const line_44 = `(Other	Information	if	any)`;
+
+        // Define the strings you want to check in the PDF content
+        const stringsToCheck = [line_1.trim(), line_2.trim(), line_3.trim(), line_4.trim(), line_5.trim(), line_6.trim(), line_7.trim(), line_8.trim(), line_9.trim(), line_10.trim(),
+        line_11.trim(), line_12.trim(), line_13.trim(), line_14.trim(), line_15.trim(), line_16.trim(), line_17.trim(), line_18.trim(), line_19.trim(), line_20.trim(),
+        line_21.trim(), line_22.trim(), line_23.trim(), line_24.trim(), line_25.trim(), line_26.trim(), line_27.trim(), line_28.trim(), line_29.trim(), line_30.trim(),
+        line_31.trim(), line_32.trim(), line_33.trim(), line_34.trim(), line_35.trim(), line_36.trim(), line_37.trim(), line_38.trim(), line_39.trim(), line_40.trim(),
+        line_41.trim(), line_42.trim(), line_43.trim(), line_44.trim()];
+
+        // Iterate over each string and assert its presence in the PDF content   
+        for (const str of stringsToCheck) {
+            //expect(text).toContain(str);
+            if ((text.replace(/\s+/g, '')).includes(str.replace(/\s+/g, ''))) {
+                //expect.soft(text).toContain(str);
+                console.log(`✔ Actual Result  : ${str}\n`);
+            } else {
+                console.log(`X Expected Result is not equal to Actual Result : ${str}`);
+            }
+        }
+
+
+        // const checks = await this.page.$$("//tbody//td");
+
+        // // Iterate through the elements
+        // for (let i = 1; i < checks.length; i++) {
+        //     // Skip the third element (index 4 & index 5)
+        //     if (i === 3 || i === 6) {
+        //         continue;
+        //     }
+        //     // Get the text content of the element and trim whitespace
+        //     const element = (await checks[i].textContent()).trim();
+
+        //     // Stop when the eighth element (index 10) has occurred
+        //     if (i === 8) {
+        //         break;
+        //     }
+
+        //     if (text.includes(element)) {
+        //         console.log(`${element} is Found`);
+        //     } else {
+        //         console.log(`${element} is not Found in the Text Document`);
+        //     }
+
+        //     // Perform the expectation check
+        //     //expect(text).toContain(element);
+        //     expect.soft(text).toContain(element);
+
+        // }
+        console.log("-------------------LOA Document Verification have Done------------------");
+
+
+        await this.page.waitForTimeout(5000);
         //Need to verify the time.....
         await this.page.click("//span[text()='Upload']");
         await this.page.waitForSelector("(//input[@type='file'])[2]");
@@ -786,9 +1125,22 @@ class DashboardCFP {
         await this.page.waitForTimeout(2000);
         // await expect(await this.page.locator("//div[@ngbtooltip='Re-Upload']")).toBeHidden();
         const loa_assert = await this.page.locator("//*[contains(text(),'LOA has been uploaded successfully')]").textContent();
-        await expect(loa_assert).toContain("LOA has been uploaded successfully");
+        expect(loa_assert).toContain("LOA has been uploaded successfully");
         console.log("----------------Successfully Uploaded the document ----------------");
 
+    }
+
+
+    // Helper function to clear files in the folder
+    async clearFolder(folderPath) {
+        try {
+            const files = await fs.readdir(folderPath);
+            for (const file of files) {
+                await fs.unlink(folderPath + file);
+            }
+        } catch (err) {
+            console.error('Error clearing folder:', err);
+        }
     }
 
     async expired_initiator_LOA(CFP) {

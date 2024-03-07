@@ -1,0 +1,56 @@
+
+
+Format-D
+	
+T-GNA	(Bilateral	Transaction)	Application	for	Grant	of	T-GNA
+	
+1Application	No.745073Date	:	06-03-2024
+2Applicant	NameTickingMindsRegistration	Code
+3
+T-GNA	Request
+DateHours
+MW
+FromToFromTo
+01-04-202401-04-202420:0023:3099999.0
+4
+Name	of	Entity
+Injecting	entity	(mandatory	for	Exigency	T-
+GNAS	application)
+Drawee	Entity
+Tickingminds_1TickingMinds
+5Injecting	RegionNRLDC
+6RouteNR-SR
+7
+Entity	in	which	it	is
+embedded
+DL-SLDCTN-SLDC
+8Whether	the	transaction	under	GTAM	(Yes/No)YES
+9
+Source	of	generation	is	solar/non	solar/hydro	(applicable	in	case	of	Exigency	T-
+GNA	application)
+SOLAR
+10Whether	the	transaction	is	for	meeting	RPO	obligationNO
+11
+Granting	T-GNA/T-GNARE	exigency	application	in	part	quantum	and	part	period
+or	both	in	case	of	constrains	as	per	available	transmission	capability	**	For
+Exigency	Application15
+YES
+	
+Declaration:
+1
+The	provisions	of	the	Electricity	Act	2003,	Indian	Electricity	Grid	Code	and	all	applicable	CERC	regulations	with	respect	to
+T-GNA/T-GNARE	transactions	in	interstate	transmission,	as	amended	from	time	to	time	are	hereby	understood	and	shall	be
+binding.
+2.
+Necessary	infrastructure	for	time-block	wise	metering	and	accounting	in	accordance	with	the	provisions	of	the	Grid	code
+and	appropriate	communication	system	in	accordance	with	the	provisions	of	the	Communication	Regulations	are	in	place
+for	the	point	of	drawal	and	point	of	injection,	if	available.
+3.
+The	Nodal	Agency	is	indemnified	at	all	times	from	any	and	all	claims,	actions	and	all	other	obligations	by	or	to	third	parties
+arising	out	of	or	resulting	from	the	transactions	under	T-GNA/T-GNARE.
+4.There	is	a	valid	contract	for	the	proposed	scheduling.
+	
+Name:..........................................
+Designation:..........................................
+	
+Date:

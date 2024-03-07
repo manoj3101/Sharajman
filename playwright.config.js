@@ -1,6 +1,5 @@
 // @ts-check
 const { defineConfig, devices } = require('@playwright/test');
-require('dotenv').config();
 
 /**
  * Read environment variables from file.
@@ -51,12 +50,12 @@ module.exports = defineConfig({
     //   args: ['--start-fullscreen'] } },
     // },
 
-    {
-      name: 'firefox',
-      use: {
-        ...devices['Desktop Firefox']
-      },
-    },
+    // {
+    //   name: 'firefox',
+    //   use: {
+    //     ...devices['Desktop Firefox']
+    //   },
+    // },
 
     // {
     //   name: 'webkit',
@@ -76,15 +75,15 @@ module.exports = defineConfig({
     // },
 
     /* Test against branded browsers. */
-    // {
-    //   name: 'Google Chrome',
-    //   use: {
-    //     ...devices['Desktop Chrome'], channel: 'chrome',
-    //     launchOptions: {
-    //       args: ['--start-fullscreen']
-    //     },
-    //   }
-    // },
+    {
+      name: 'Google Chrome',
+      use: {
+        ...devices['Desktop Chrome'], channel: 'chrome',
+        launchOptions: {
+          args: ['--start-fullscreen']
+        },
+      }
+    },
 
     // {
     //   name: 'Microsoft Edge',
@@ -93,6 +92,13 @@ module.exports = defineConfig({
     //     launchOptions: {
     //       args: ['--start-fullscreen']
     //     },
+    //   },
+    // },
+
+    // {
+    //   name: 'firefox',
+    //   use: {
+    //     ...devices['Desktop Firefox']
     //   },
     // },
 

@@ -4,17 +4,23 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "allure-report": "npx allure generate --clean ./allure-results && allure open"
+    "test": "npx playwright test",
+    "allure:generate": "allure generate allure-results -o allure-report --clean",
+    "allure:open": "allure open allure-report",
+    "all": "npm test && npm run allure:generate && npm run allure:open"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@playwright/test": "^1.40.1",
+    "@playwright/test": "^1.42.1",
     "@types/node": "^20.9.3",
     "allure-playwright": "^2.10.0"
   },
   "dependencies": {
-    "dotenv": "^16.4.1"
+    "dotenv": "^16.4.1",
+    "fs": "^0.0.1-security",
+    "fs-extra": "^11.2.0",
+    "pdf-parse": "^1.1.1"
   }
 }
