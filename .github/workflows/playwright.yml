@@ -1,55 +1,55 @@
-name: Run Playwright Tests
+# name: Run Playwright Tests
 
-on:
-  push:
-    branches:
-      - main
+# on:
+#   push:
+#     branches:
+#       - main
 
-jobs:
-  build:
-    runs-on: windows-latest
+# jobs:
+#   build:
+#     runs-on: windows-latest
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v2
 
-      - name: Install Node.js
-        run: |
-          curl -o nodejs-setup.exe https://nodejs.org/dist/${NODE_VERSION}/node-${NODE_VERSION}-x64.msi
-          # Use 'Add-Path' to add the Node.js installation directory to PATH on Windows.
-          echo "##[add-path]D:\node js" >> $GITHUB_ENV
-          node -v
-          npm -v
-          npx -v
-        env:
-          NODE_VERSION: "v20.9.0"
+#       - name: Install Node.js
+#         run: |
+#           curl -o nodejs-setup.exe https://nodejs.org/dist/${NODE_VERSION}/node-${NODE_VERSION}-x64.msi
+#           # Use 'Add-Path' to add the Node.js installation directory to PATH on Windows.
+#           echo "##[add-path]D:\node js" >> $GITHUB_ENV
+#           node -v
+#           npm -v
+#           npx -v
+#         env:
+#           NODE_VERSION: "v20.9.0"
 
-      - name: Install Dependencies
-        run: |
-          npm install
-          npx playwright install
-          npm install -g allure-commandline
+#       - name: Install Dependencies
+#         run: |
+#           npm install
+#           npx playwright install
+#           npm install -g allure-commandline
 
-      - name: Set PLAYWRIGHT_HEADLESS to true
-        run: echo "PLAYWRIGHT_HEADLESS=true" >> $GITHUB_ENV
+#       - name: Set PLAYWRIGHT_HEADLESS to true
+#         run: echo "PLAYWRIGHT_HEADLESS=true" >> $GITHUB_ENV
 
-      - name: Run Playwright tests
-        env:
-          TOTP_SECRET: ${{ secrets.TOTP_SECRET }}
-        run: npx playwright test 
+#       - name: Run Playwright tests
+#         env:
+#           TOTP_SECRET: ${{ secrets.TOTP_SECRET }}
+#         run: npx playwright test 
 
-      - name: Generate Allure Report
-        run:  allure generate .\allure-results\ -o allure-report -clean 
+#       - name: Generate Allure Report
+#         run:  allure generate .\allure-results\ -o allure-report -clean 
 
 
-      - name: Publish Allure Report as Artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: allure-report
-          path: allure-report # Adjust the path to the generated report
+#       - name: Publish Allure Report as Artifact
+#         uses: actions/upload-artifact@v2
+#         with:
+#           name: allure-report
+#           path: allure-report # Adjust the path to the generated report
 
-      - name: Publish Playwright Report as Artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: playwright-report
-          path: playwright-report  # Adjust the path to the generated Playwright report    
+#       - name: Publish Playwright Report as Artifact
+#         uses: actions/upload-artifact@v2
+#         with:
+#           name: playwright-report
+#           path: playwright-report  # Adjust the path to the generated Playwright report    
