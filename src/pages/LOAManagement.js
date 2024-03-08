@@ -2,6 +2,7 @@ const { test, expect } = require('@playwright/test');
 const data = require("../helper/utils/data.json");
 const pdf = require('pdf-parse');
 const fs = require('fs').promises; // Import fs module with promises
+const path = require('path');
 const DashboardCFP = require("../pages/DashboardCFP");
 
 
@@ -44,7 +45,27 @@ class LOAManagement {
         await this.page.getByRole('button', { name: /Search/i }).click();
         await this.page.click("//div[contains(@class,'gredient-blue-icon-box')]");
         await this.page.waitForSelector("(//input[@type='file'])[2]");
-        await this.page.locator("(//input[@type='file'])[2]").setInputFiles('src/helper/utils/LOA.pdf');
+
+        //new
+        // Assuming you're inside an async function
+        const inputfolder = 'src/helper/utils/PDF/';
+
+        // Read the contents of the directory
+        const files = fs.readdirSync(inputfolder);
+
+        // Filter PDF files if needed
+        const pdfFiles = files.filter(file => path.extname(file).toLowerCase() === '.pdf');
+
+        if (pdfFiles.length === 0) {
+            console.error('No PDF files found in the specified directory.');
+            return; // Exit or handle accordingly
+        }
+
+        // Choose the first PDF file found, you can modify this logic as needed
+        const pdfFilePath = path.join(folderPath, pdfFiles[0]);
+        //new
+
+        await this.page.locator("(//input[@type='file'])[2]").setInputFiles('src/helper/utils/PDF/');
         await this.page.waitForTimeout(3000);
         await this.page.getByRole('button', { name: /Upload/i }).click();
         await this.page.waitForTimeout(3000);
@@ -72,7 +93,7 @@ class LOAManagement {
 
         // Use the suggested filename from the download event to save the file
         const suggestedFileName = download.suggestedFilename();
-        const filePath = 'src/helper/utils/PDF/' + suggestedFileName; // Specify the correct folder path 
+        const filePath = 'src/helper/utils/PDF/LOA.pdf' + suggestedFileName; // Specify the correct folder path 
         await download.saveAs(filePath);
 
         // Use the 'pdf-parse' module to extract the text from the PDF file
@@ -106,7 +127,7 @@ class LOAManagement {
         const line_17 = `below	mentioned	arrangement.`;
         const line_18 = `Supply	of	Power	from	${data.Utility_2}	to	${data.Utility_1}`;
         const line_19 = `UtilityPeriodDuration	(Hrs.)Quantum	(MW)`;
-        const line_20 = `${data.Utility_1}${imp_start_date}	to	${imp_end_date}${imp_start_time}	-	${imp_end_time}${quantum}`;
+        const line_20 = `${data.Utility_1}${imp_start_date.split('-').reverse().join('-')}	to	${imp_end_date.split('-').reverse().join('-')}${imp_start_time}	-	${imp_end_time}${quantum}`;
 
         const line_21 = `Return	of	Power	by	${data.Utility_1}	to	${data.Utility_2}`;
         const line_22 = `UtilityPeriod`;
@@ -219,7 +240,7 @@ class LOAManagement {
         const line_6 = `DateHours`;
         const line_7 = `FromToFromTo`;
 
-        const line_8 = `${imp_start_date.dateStr.split('-').reverse().join('-')}${imp_end_date.dateStr.split('-').reverse().join('-')}${imp_start_time}${imp_end_time}${quantum}`;
+        const line_8 = `${imp_start_date.split('-').reverse().join('-')}${imp_end_date.split('-').reverse().join('-')}${imp_start_time}${imp_end_time}${quantum}`;
         const line_9 = `Name	of	Entity`;
         const line_10 = `Injecting	entity	(mandatory	for	Exigency	T-`;
         const line_11 = `GNAS	application)`;
@@ -336,6 +357,13 @@ class LOAManagement {
 
     }
 
+    //Action 
+    async action_FormatD(CFP) {
+        await this.page.locator("//label[contains(text(),'Responder')]").click();
+        await this.page.getByPlaceholder('Search').fill(CFP);
+        await this.page.getByRole('button', { name: /Search/i }).click();
+    }
+
     //Function to Generate a random 5 or 6 digit number
     async generateRandomNumber(min, max) {
         return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -390,7 +418,7 @@ class LOAManagement {
 
         const message = await this.page.locator("//*[contains(text(),'Format-D have been generated successfully')]").textContent();
         console.log(`${message}`);
-        await expect(message).toContain("Format-D have been generated successfully");
+        expect(message).toContain("Format-D have been generated successfully");
         await this.page.waitForTimeout(2000);
         console.log("----------------Format-D Generated Successfully ----------------");
 

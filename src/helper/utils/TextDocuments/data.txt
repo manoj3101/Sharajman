@@ -4,7 +4,7 @@ Format-D
 	
 T-GNA	(Bilateral	Transaction)	Application	for	Grant	of	T-GNA
 	
-1Application	No.745073Date	:	06-03-2024
+1Application	No.228496Date	:	08-03-2024
 2Applicant	NameTickingMindsRegistration	Code
 3
 T-GNA	Request

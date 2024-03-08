@@ -170,43 +170,21 @@ test.describe('TC_IM_006', () => {
 
     });
 
-    // test('LOA DOCUMENT Verification', async ({ page, context, browser }) => {
-    //     const login = new Login(page);
-    //     const home = new Home(page);
-    //     const dashboardCFP = new DashboardCFP(page, context, browser);
-    //     const loaManagement = new LOAManagement(page);
+    test('Format D Generation From Responder Side', async ({ page, context, browser }) => {
+        const login = new Login(page);
+        const home = new Home(page);
+        const dashboardCFP = new DashboardCFP(page, context, browser);
+        const loaManagement = new LOAManagement(page);
 
-    //     await login.login(data.user1, data.user1_password);
+        await login.login(data.user2, data.user2_password);
 
-    //     await loaManagement.loaGeneration();
+        await loaManagement.loaGeneration();
 
-    //    await loaManagement.documnetverification("23240203760");
+        await loaManagement.action_FormatD(cfpNumber);
 
-    //     console.log("--------------------Awarding and LOA has generated Successfully-----------------");
+        await loaManagement.formatD(data.TC_06.GTAM, data.TC_06.source_of_generation, data.TC_06.RPO, data.TC_06.TGNA, data.TC_06.exp_start_date, data.TC_06.exp_end_date, data.TC_06.exp_start_time, data.TC_06.imp_end_time, data.TC_06.minQuantumValue1);
 
-    //     console.log("Initiator Uploaded the LOA documents successfully. \n <<<<<<<<<<<LOA has been uploaded successfully.>>>>>>>>>>>>>>");
-
-    // });
-
-    // test('Format D Verification', async ({ page, context, browser }) => {
-    //     const login = new Login(page);
-    //     const home = new Home(page);
-    //     const dashboardCFP = new DashboardCFP(page, context, browser);
-    //     const loaManagement = new LOAManagement(page);
-
-    //     await login.login(data.user1, data.user1_password);
-
-    //     await loaManagement.loaGeneration("23240203760");
-
-    //     // await loaManagement.documnetverification("23240203760");
-
-    //    await loaManagement.formatD_DocumentVerification("23240203760");
-
-    //     console.log("--------------------Awarding and LOA has generated Successfully-----------------");
-
-    //     console.log("Initiator Uploaded the LOA documents successfully. \n <<<<<<<<<<<LOA has been uploaded successfully.>>>>>>>>>>>>>>");
-
-    // });
+    });
 
 });
 

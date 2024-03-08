@@ -3,6 +3,7 @@ const tabSwitcher = require('../hooks/tabSwitcher');
 const data = require("../helper/utils/data.json");
 const pdf = require('pdf-parse');
 const fs = require('fs').promises;
+const path = require('path');
 const LOAManagement = require('../pages/LOAManagement');
 
 
@@ -478,7 +479,7 @@ class DashboardCFP {
         //Click place response button...
         await this.page.locator("//button[contains(text(),'Place Response')]").click({ timeout: 50000 });
         await this.page.getByRole('button', { name: /Proceed/i }).click(); //new button
-        
+
         // await this.page.$eval("//button[contains(text(),'Place Response')]", (button) => {
         //     if(button.textContent.includes('Place Response')) {
         //         button.click();
@@ -1036,7 +1037,7 @@ class DashboardCFP {
         const line_17 = `below	mentioned	arrangement.`;
         const line_18 = `Supply	of	Power	from	${data.Utility_2}	to	${data.Utility_1}`;
         const line_19 = `UtilityPeriodDuration	(Hrs.)Quantum	(MW)`;
-        const line_20 = `${data.Utility_1}${imp_start_date.dateStr.split('-').reverse().join('-')}	to	${imp_end_date.dateStr.split('-').reverse().join('-')}${imp_start_time}	-	${imp_end_time}${quantum}`;
+        const line_20 = `${data.Utility_1}${imp_start_date.split('-').reverse().join('-')}	to	${imp_end_date.split('-').reverse().join('-')}${imp_start_time}	-	${imp_end_time}${quantum}`;
 
         const line_21 = `Return	of	Power	by	${data.Utility_1}	to	${data.Utility_2}`;
         const line_22 = `UtilityPeriod`;
@@ -1048,7 +1049,7 @@ class DashboardCFP {
         const line_28 = `percentage)`;
         const line_29 = `Return	Ratio`;
         const line_30 = `in	%`;
-        const line_31 = `${data.Utility_2}${exp_start_date.dateStr.split('-').reverse().join('-')}	to	${exp_end_date.dateStr.split('-').reverse().join('-')}${exp_start_time}	-	${exp_end_time}${Quantum_2}${returnpercent}`;
+        const line_31 = `${data.Utility_2}${exp_start_date.split('-').reverse().join('-')}	to	${exp_end_date.split('-').reverse().join('-')}${exp_start_time}	-	${exp_end_time}${Quantum_2}${returnpercent}`;
 
         const line_32 = `Delivery	Point`;
         const line_33 = `The	delivery	point,	in	either	case,	shall	be	the	Regional	Periphery	of	Exporting`;
@@ -1085,33 +1086,6 @@ class DashboardCFP {
         }
 
 
-        // const checks = await this.page.$$("//tbody//td");
-
-        // // Iterate through the elements
-        // for (let i = 1; i < checks.length; i++) {
-        //     // Skip the third element (index 4 & index 5)
-        //     if (i === 3 || i === 6) {
-        //         continue;
-        //     }
-        //     // Get the text content of the element and trim whitespace
-        //     const element = (await checks[i].textContent()).trim();
-
-        //     // Stop when the eighth element (index 10) has occurred
-        //     if (i === 8) {
-        //         break;
-        //     }
-
-        //     if (text.includes(element)) {
-        //         console.log(`${element} is Found`);
-        //     } else {
-        //         console.log(`${element} is not Found in the Text Document`);
-        //     }
-
-        //     // Perform the expectation check
-        //     //expect(text).toContain(element);
-        //     expect.soft(text).toContain(element);
-
-        // }
         console.log("-------------------LOA Document Verification have Done------------------");
 
 
@@ -1119,7 +1093,27 @@ class DashboardCFP {
         //Need to verify the time.....
         await this.page.click("//span[text()='Upload']");
         await this.page.waitForSelector("(//input[@type='file'])[2]");
-        await this.page.locator("(//input[@type='file'])[2]").setInputFiles('src/helper/utils/LOA.pdf');
+
+        //new
+        // Assuming you're inside an async function
+        const inputfolder = 'src/helper/utils/PDF/';
+
+        // Read the contents of the directory
+        const files = fs.readdirSync(inputfolder);
+
+        // Filter PDF files if needed
+        const pdfFiles = files.filter(file => path.extname(file).toLowerCase() === '.pdf');
+
+        if (pdfFiles.length === 0) {
+            console.error('No PDF files found in the specified directory.');
+            return; // Exit or handle accordingly
+        }
+
+        // Choose the first PDF file found, you can modify this logic as needed
+        const pdfFilePath = path.join(folderPath, pdfFiles[0]);
+        //new
+        
+        await this.page.locator("(//input[@type='file'])[2]").setInputFiles(pdfFilePath);
         await this.page.waitForTimeout(2000);
         await this.page.getByRole('button', { name: /Upload/i }).click();
         await this.page.waitForTimeout(2000);
@@ -1178,7 +1172,7 @@ class DashboardCFP {
 
         //Assert
         const Expired = await this.page.locator("//div[@role='alert' and contains(@class, 'toast-message') and contains(text(), 'Your LOA issuance timeline has been expired')]").textContent();
-        await expect(Expired).toContain(" Your LOA issuance timeline has been expired");
+        expect(Expired).toContain(" Your LOA issuance timeline has been expired");
         console.log("-------------Initiator can't Generate LOA-------------------- \n !!!!!!!!!!!!!!!!!!!Your LOA issuance timeline has been expired.!!!!!!!!!!!!!!!!!!!!!!!");
 
     }
